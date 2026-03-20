@@ -1,0 +1,65 @@
+{
+  "skill_name": "storytelling",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "/storytelling ช่วยทำ slide เรื่อง digital transformation ของ IFCG ให้ board อนุมัติงบ 5 ล้าน นำเสนอ 15 นาที สีน้ำเงินเข้มของบริษัท",
+      "expected_output": "storytelling.json with ~12 slides, pitch storyline, assertion headlines, per-slide prompts for gslide, speaker scripts with transitions",
+      "files": [],
+      "assertions": [
+        {"id": "valid-json", "text": "Output is valid JSON that can be parsed"},
+        {"id": "has-presentation-blueprint", "text": "JSON contains a 'presentation' object with at minimum: topic, audience, goal, one_big_idea, storyline, color_palette"},
+        {"id": "has-slides-array", "text": "JSON contains a non-empty 'slides' array"},
+        {"id": "slide-count-matches-duration", "text": "Slide count is 8-15 (reasonable for 15 min presentation at ~1-2 min/slide)"},
+        {"id": "assertion-headlines", "text": "Every slide has a 'headline' that is a complete sentence (not just a topic word or phrase) — at least 5 words per headline"},
+        {"id": "has-gslide-prompts", "text": "Every slide has a non-empty 'prompt' field containing generation instructions for gslide"},
+        {"id": "prompts-include-layout", "text": "Every prompt mentions a specific layout pattern (e.g., split, timeline, centered, cards, full-bleed, grid, hub, funnel)"},
+        {"id": "prompts-include-style", "text": "Every prompt mentions a visual style (e.g., flat vector, isometric, corporate, minimal, clean)"},
+        {"id": "has-speaker-scripts", "text": "Every slide has a 'script' or speaker notes field with at least 30 words"},
+        {"id": "has-transitions", "text": "At least 80% of slides have transition_in and transition_out fields"},
+        {"id": "story-arc-present", "text": "Slides collectively cover beginning (opening/problem), middle (evidence/solution), and end (reward/CTA) — story_role or type fields span the full arc"},
+        {"id": "sparkline-positions", "text": "At least some slides have sparkline_position values showing alternation between what_is and what_could_be (appropriate for pitch storyline)"}
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "/storytelling ผมมีเนื้อหาจาก NotebookLM เรื่อง กลยุทธ์ฟื้นฟู IFCG สร้างทีมขายใหม่ อยากทำ presentation สอนพนักงานใหม่ 20 คน ประมาณ 10 นาที ไม่ต้อง formal มาก",
+      "expected_output": "storytelling.json with ~10 slides, explanation storyline, casual tone, progressive complexity, assertion headlines, speaker scripts",
+      "files": [],
+      "assertions": [
+        {"id": "valid-json", "text": "Output is valid JSON that can be parsed"},
+        {"id": "has-presentation-blueprint", "text": "JSON contains a 'presentation' object with at minimum: topic, audience, goal, one_big_idea, storyline, color_palette"},
+        {"id": "has-slides-array", "text": "JSON contains a non-empty 'slides' array"},
+        {"id": "slide-count-matches-duration", "text": "Slide count is 6-12 (reasonable for 10 min presentation)"},
+        {"id": "assertion-headlines", "text": "Every slide has a 'headline' that is a complete sentence — at least 5 words per headline"},
+        {"id": "has-gslide-prompts", "text": "Every slide has a non-empty 'prompt' field"},
+        {"id": "prompts-include-layout", "text": "Every prompt mentions a specific layout pattern"},
+        {"id": "prompts-include-style", "text": "Every prompt mentions a visual style"},
+        {"id": "has-speaker-scripts", "text": "Every slide has a 'script' field with at least 30 words"},
+        {"id": "has-transitions", "text": "At least 80% of slides have transition_in and transition_out fields"},
+        {"id": "storyline-is-explanation", "text": "The storyline type is 'explanation' (not pitch) and slides show progressive complexity — simpler concepts before complex ones"},
+        {"id": "casual-tone", "text": "The tone field is casual/friendly (not formal) and scripts use approachable language"}
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "/storytelling ต้อง present ให้ลูกค้า 5 นาที เรื่อง Glu+Me แอป AI สำหรับ รพ.สต. ลูกค้าเป็นหมอและพยาบาลที่ไม่ค่อยเก่งเทค อยากให้เขา pilot ใช้งาน",
+      "expected_output": "storytelling.json with ~5-7 slides, pitch storyline, simple language, concrete examples, healthcare-friendly visuals, clear CTA for pilot signup",
+      "files": [],
+      "assertions": [
+        {"id": "valid-json", "text": "Output is valid JSON that can be parsed"},
+        {"id": "has-presentation-blueprint", "text": "JSON contains a 'presentation' object with topic, audience, goal, one_big_idea, storyline, color_palette"},
+        {"id": "has-slides-array", "text": "JSON contains a non-empty 'slides' array"},
+        {"id": "slide-count-matches-duration", "text": "Slide count is 4-8 (reasonable for 5 min presentation)"},
+        {"id": "assertion-headlines", "text": "Every slide has a 'headline' that is a complete sentence — at least 5 words"},
+        {"id": "has-gslide-prompts", "text": "Every slide has a non-empty 'prompt' field"},
+        {"id": "prompts-include-layout", "text": "Every prompt mentions a specific layout pattern"},
+        {"id": "prompts-include-style", "text": "Every prompt mentions a visual style"},
+        {"id": "has-speaker-scripts", "text": "Every slide has a 'script' field with at least 30 words"},
+        {"id": "has-clear-cta", "text": "The last content slide has a clear call to action mentioning pilot signup or trial"},
+        {"id": "audience-appropriate-language", "text": "Scripts and headlines use simple, non-technical language appropriate for healthcare workers who are not tech-savvy"},
+        {"id": "concrete-benefits", "text": "At least one slide presents concrete, specific benefits (e.g., time saved percentage, reduced workload) rather than vague claims"}
+      ]
+    }
+  ]
+}

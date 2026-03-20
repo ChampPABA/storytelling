@@ -1,0 +1,4 @@
+storytelling-workspace/
+__pycache__/
+*.pyc
+.claude/
