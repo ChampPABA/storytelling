@@ -17,7 +17,13 @@ Pair with [`/gslide`](https://github.com/ChampPABA/gslide) to generate the actua
 ## Install
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/ChampPABA/storytelling/main/skills.sh | bash
+npx skills add https://github.com/ChampPABA/storytelling --skill storytelling
+```
+
+Or install globally (available across all projects):
+
+```bash
+npx skills add https://github.com/ChampPABA/storytelling --skill storytelling -g
 ```
 
 ## Flow
