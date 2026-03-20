@@ -1,52 +1,50 @@
 # storytelling
 
-Claude Code skill สำหรับวางแผน presentation ด้วย Storytelling Canvas framework — จาก content ดิบ ไปจนถึง slide plan พร้อม speaker script และ AI generation prompt
+A Claude Code skill for planning presentations using the Storytelling Canvas framework — from raw content to a complete slide-by-slide blueprint with speaker scripts and AI generation prompts.
 
-## ทำอะไรได้
+## What it does
 
 ```
-/storytelling ช่วยทำ slide เรื่อง digital transformation ให้ board อนุมัติงบ 15 นาที
+/storytelling Help me create a 15-minute pitch deck about digital transformation for the board
 ```
 
-ได้ `storytelling.json` ที่มี:
+Produces a `storytelling.json` containing:
 - **Presentation Blueprint** — topic, audience, goal, storyline, visual style, color palette
-- **Per-slide plan** — headline, script, transitions, layout, gslide prompt
+- **Per-slide plan** — assertion headline, speaker script, transitions, layout, generation prompt
 
-ใช้คู่กับ [`/gslide`](https://github.com/ChampPABA/gslide) เพื่อสร้าง Google Slides จริง
+Pair with [`/gslide`](https://github.com/ChampPABA/gslide) to generate the actual Google Slides.
 
 ## Install
 
 ```bash
-git clone https://github.com/ChampPABA/storytelling.git
-cd storytelling
-bash skills.sh
+curl -fsSL https://raw.githubusercontent.com/ChampPABA/storytelling/main/skills.sh | bash
 ```
 
 ## Flow
 
 ```
-/storytelling (วางแผน)          /gslide (สร้างจริง)
-      │                              │
-      ├─ รับ content                  ├─ อ่าน storytelling.json
-      ├─ ถามสิ่งที่ขาด                ├─ สร้าง/เลือก presentation
-      ├─ สร้าง blueprint             ├─ gen slides ทีละอัน
-      ├─ สร้าง slide plan            └─ report link
-      ├─ user approve
-      ├─ gen detail ทุก slide
-      └─ บันทึก storytelling.json
+/storytelling (plan)                /gslide (generate)
+      │                                  │
+      ├─ Receive content                 ├─ Read storytelling.json
+      ├─ Clarify missing info            ├─ Create/select presentation
+      ├─ Create blueprint                ├─ Gen slides one by one
+      ├─ Generate slide plan             └─ Report link
+      ├─ User approve/iterate
+      ├─ Gen per-slide details
+      └─ Save storytelling.json
 ```
 
 ## Frameworks
 
-สร้างจากการผสมผสาน:
+Built by combining established presentation design research:
 
-| แหล่งความรู้ | ใช้ทำอะไร |
+| Source | What it provides |
 |---|---|
-| **Storytelling Canvas** (Kernbach) | โครงสร้างเรื่อง 3-Act, SUCCESS formula |
+| **Storytelling Canvas** (Kernbach) | 3-Act story structure, SUCCESS formula |
 | **Sparkline** (Nancy Duarte) | What Is ↔ What Could Be emotional arc |
-| **Assertion-Evidence Model** (Michael Alley) | Headline เป็นประโยคสมบูรณ์ + visual evidence |
+| **Assertion-Evidence Model** (Michael Alley) | Full-sentence headlines + visual evidence |
 | **Presentation Zen** (Garr Reynolds) | Simplicity, white space, picture superiority |
-| **AI Prompt Engineering** | 9-component prompt anatomy สำหรับ Gemini |
+| **AI Prompt Engineering** | 9-component prompt anatomy for Gemini |
 
 ## Output Schema
 
@@ -67,8 +65,8 @@ bash skills.sh
     "index": 1,
     "tab": "infographic",
     "type": "problem",
-    "headline": "ประโยคสมบูรณ์ที่สรุปข้อความหลักของ slide นี้",
-    "script": "สิ่งที่ผู้พูดจะพูด...",
+    "headline": "Full-sentence assertion summarizing this slide's key message",
+    "script": "What the presenter says...",
     "transition_in": "...",
     "transition_out": "...",
     "prompt": "Landscape 16:9 infographic. Split-screen layout..."
