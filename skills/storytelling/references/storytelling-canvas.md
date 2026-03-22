@@ -79,22 +79,22 @@ A concrete, specific invitation tailored to the audience type (Doer/Supplier/Inf
 
 ## SUCCESS Formula
 
-Adapted from Heath & Heath, this guides the middle section of the presentation. Each element maps to specific slide types:
+Adapted from Heath & Heath, this guides the middle section of the presentation. Each element suggests a type of beat content:
 
 ### S — Simplicity
 Present the core message clearly. Use the **Rule of Three** — support your argument with exactly 3 points, 3 examples, or 3 reasons. The human brain processes groups of 3 naturally.
 
-→ Slide type: Clean data slides, key-point slides with 3 items
+→ Beat examples: data comparison beat, key-point beat with 3 supporting items
 
 ### U — Unexpectedness
 Create surprise or curiosity. Break a pattern the audience expects. Pose a question and don't answer it immediately — create an information gap that pulls the audience forward.
 
-→ Slide type: Provocative question slides, surprising statistic slides, "did you know" reveals
+→ Beat examples: provocative question beat, surprising statistic beat, "did you know" reveal beat
 
 ### C — Concreteness
 Replace abstract concepts with tangible examples. Use real stories, physical metaphors, and specific numbers. "Revenue grew" → "Revenue grew 47% in 6 months, from 12M to 17.6M."
 
-→ Slide type: Case study slides, example slides, comparison slides with specific numbers
+→ Beat examples: case study beat, example beat, comparison beat with specific numbers
 
 ### C — Credibility
 Build trust through evidence:
@@ -103,16 +103,16 @@ Build trust through evidence:
 - **Statistics** — hard numbers from reliable sources
 - **Authority** — expert quotes or endorsements
 
-→ Slide type: Data/chart slides, quote/testimonial slides, credential slides
+→ Beat examples: data/chart beat, quote/testimonial beat, credential beat
 
 ### E — Emotions
 Move the audience. Use both:
-- **Positive emotions** — hope, relief, pride, excitement (for "what could be" slides)
-- **Negative emotions** — fear, frustration, urgency (for "what is" slides)
+- **Positive emotions** — hope, relief, pride, excitement (for "what could be" beats)
+- **Negative emotions** — fear, frustration, urgency (for "what is" beats)
 
 The emotional arc should match the Sparkline pattern — tension in "what is" moments, relief in "what could be" moments.
 
-→ Slide type: Full-bleed image slides, story slides, S.T.A.R. moment slides
+→ Beat examples: emotional image beat, story beat, S.T.A.R. moment beat
 
 ### S — Storylines
 Choose the narrative vehicle:
@@ -130,7 +130,7 @@ Choose the narrative vehicle:
 
 Design this moment deliberately. It should be the emotional climax of your Sparkline.
 
-→ Slide type: Full-bleed dramatic slide, single-number slide, quote slide
+→ Beat examples: dramatic single-focus beat, single-number beat, quote beat
 
 ---
 
@@ -151,11 +151,11 @@ What Is       ╲
 
 **Why this works:** Each shift creates tension (what is) and then relief (what could be). This emotional rhythm keeps the audience engaged and makes the final vision feel earned, not imposed.
 
-**Per-slide mapping:**
-- Problem slides = "what is"
-- Solution slides = "what could be"
-- S.T.A.R. moment = the biggest "shift" point
-- CTA = "new bliss"
+**Per-beat sparkline position:**
+- Problem / evidence beats = `what_is`
+- Solution / possibility beats = `what_could_be`
+- S.T.A.R. moment beat = `shift`
+- Opening / divider / CTA beats = `neutral`
 
 ---
 

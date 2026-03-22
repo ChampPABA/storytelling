@@ -89,8 +89,12 @@ Each beat has **2 layers**:
 
 ```
 Core Takeaway:  [1 sentence — if the audience forgets everything, they remember this]
+Content:        [bullet list of specific facts, data points, and examples that must appear
+                 in this beat — e.g. "47% revenue growth Q3", "Case: Toyota pilot result"
+                 These are the raw materials. Keep them atomic and specific.]
 Narrative:      [the substance of this beat — what needs to be communicated, in full prose.
                  At least 100 Thai characters or 50 English words, even for short beats.
+                 Weave the Content items into coherent prose here.
                  This is content, not delivery: not "say this line", not "caption this image".
                  Output skills will transform this into speaker notes, captions, post copy, etc.]
 ```
@@ -107,6 +111,11 @@ SUCCESS Element:[which element of the Canvas this beat addresses:
                  — null for opening, divider, reward, and CTA beats]
 Visual Evidence:[what should be shown to support the headline — described as content intent,
                  not as a prompt. e.g. "bar chart comparing 3 competitors" not "flat vector infographic"]
+Sparkline:      [what_is | what_could_be | shift | neutral]
+                what_is       — current reality, problems, pain
+                what_could_be — vision, solution, possibility
+                shift         — the S.T.A.R. turning point between the two
+                neutral       — structural beats: opening, divider, CTA
 Emotional Tone: [alarming / confident / curious / relieved / inspiring / shocking / nostalgic]
 Priority:       [essential | important | supplementary]
                 essential     — story is incomplete without this beat
@@ -119,7 +128,7 @@ Cluster:        [opening | problem | evidence | solution | closing]
 
 **Why SUCCESS element matters:** The middle section of a story must cover all dimensions of the Canvas — Simplicity, Unexpectedness, Concreteness, Credibility, Emotions. Tagging each beat keeps the story balanced and prevents over-indexing on one type (e.g., 5 data beats in a row).
 
-**Why priority + cluster matter:** This blueprint is a master source of truth — output skills (slides, social posts, TikTok, infographics) will consume it with different space constraints. Priority lets them select beats automatically: a 5-slide deck takes `essential` only; a 12-slide deck adds `important`. Cluster lets them group beats into sections or posts. Each output skill is responsible for adapting the `narrative` into its own format-specific writing — that work belongs there, not here.
+**Why priority + cluster matter:** This blueprint is a master source of truth — output skills will consume it with different space constraints. Priority lets them select beats automatically: a compact format takes `essential` only; a longer format adds `important`. Cluster lets them group beats into sections or posts. Each output skill is responsible for adapting the `narrative` into its own format-specific writing — that work belongs there, not here.
 
 **Show progress to the user** as you generate:
 ```
@@ -185,7 +194,7 @@ Write the complete output to `storytelling.json` in the current working director
     {
       "index": 1,
       "type": "opening | common_ground | problem | data | star_moment | divider | solution | process | roi | comparison | reward | cta | ...",
-      "story_role": "string — e.g. beginning/start_with_why, middle/credibility, end/reward",
+      "story_role": "beginning/start_with_why | beginning/common_ground | beginning/one_big_idea | middle/simplicity | middle/unexpectedness | middle/concreteness | middle/credibility | middle/emotions | middle/star_moment | end/reward | end/cta",
       "success_element": "simplicity | unexpectedness | concreteness | credibility | emotions | storyline | star_moment | null",
       "sparkline_position": "what_is | what_could_be | shift | neutral",
       "emotional_tone": "string",
