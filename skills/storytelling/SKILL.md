@@ -78,7 +78,9 @@ Show the blueprint to the user for confirmation before proceeding.
 
 ### Step 4: Generate Per-Beat Details
 
-Once the blueprint is approved, generate full details for every beat. Each beat has **2 layers**:
+Once the blueprint is approved, go straight to generating full details for every beat — do not produce an intermediate beat plan table. Beat count comes from duration (~1-2 min per beat), and S.T.A.R. moment belongs in the middle-to-late section of the story after tension has built, not in the first few beats.
+
+Each beat has **2 layers**:
 
 #### Layer 1: Briefing (for humans)
 
@@ -199,6 +201,10 @@ After saving, tell the user:
 Note: `storytelling.json` เป็น format-agnostic content plan — skill ใดก็ได้รับไปเป็น context แล้วตีความสู่ output format ของตัวเอง
 
 ## Important Principles
+
+**On beat types:** Each beat has exactly one `type` — the primary narrative function (opening, problem, data, solution, star_moment, etc.). If a beat is trying to do two things at once (e.g., establish common ground AND deliver the S.T.A.R. moment), split it into two beats. The `success_element` field is separate — it tags which Canvas dimension the beat serves, not the narrative role.
+
+**On S.T.A.R. placement:** The S.T.A.R. moment is the climax of the story — it lands hardest when tension has been building through the Middle section. Placing it in the first 3 beats kills the arc before it starts. A 12-beat story should have its S.T.A.R. around beats 7-9.
 
 **On beats vs slides:** Beats are story units, not slides. A beat represents one narrative idea — it may become 1 slide, multiple slides, or share a slide with another beat. The split into visual units is the output skill's responsibility. Don't think in slides when planning beats.
 
