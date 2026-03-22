@@ -39,7 +39,6 @@ Check what information you already have from the content and conversation. Only 
 |---|---|
 | **Audience** | Determines vocabulary, depth, emotional appeals |
 | **Goal (Before → After)** | What should the audience think/feel/do differently after? |
-| **Duration** | Determines story pacing and beat count (~1-2 min per beat) |
 
 **Optional inputs (use smart defaults):**
 
@@ -78,7 +77,11 @@ Show the blueprint to the user for confirmation before proceeding.
 
 ### Step 4: Generate Per-Beat Details
 
-Once the blueprint is approved, generate full details for every beat directly. Skipping an intermediate beat plan table keeps the focus on story depth rather than a skeleton that could anchor thinking to the wrong format. Beat count comes from duration (~1-2 min per beat), and the S.T.A.R. moment belongs in the middle-to-late section after tension has built — not in the first few beats.
+Once the blueprint is approved, generate full details for every beat directly. Skipping an intermediate beat plan table keeps the focus on story depth rather than a skeleton that could anchor thinking to the wrong format.
+
+**Deciding beat count:** Let the content and the narrative arc determine how many beats you need — not a duration target. A short input may yield 5–6 beats; rich, multi-topic content may yield 12–15. Every beat must carry real content — a beat with nothing substantial to say shouldn't exist just to fill a quota. The minimum arc every story needs is: Opening → Problem → S.T.A.R. → Solution → CTA. Add beats in the middle only when the content genuinely supports them.
+
+**S.T.A.R. placement:** The S.T.A.R. moment lands hardest after tension has built through problem and evidence beats — placing it too early wastes the impact. It belongs in the second half of the story.
 
 Each beat has **2 layers**:
 
@@ -107,9 +110,20 @@ SUCCESS Element:[which element of the Canvas this beat addresses:
 Visual Evidence:[what should be shown to support the headline — described as content intent,
                  not as a prompt. e.g. "bar chart comparing 3 competitors" not "flat vector infographic"]
 Emotional Tone: [alarming / confident / curious / relieved / inspiring / shocking / nostalgic]
+Priority:       [essential | important | supplementary]
+                essential     — story is incomplete without this beat
+                important     — significantly aids understanding; include if space allows
+                supplementary — adds depth but the story holds without it
+Cluster:        [opening | problem | evidence | solution | closing]
+                — which narrative section this beat belongs to; output skills use this
+                  to group beats when mapping to multi-post or section-based formats
+Condensed Script:[1–2 sentence version of the script for space-constrained formats
+                  such as social captions, infographic labels, or short-form video]
 ```
 
 **Why SUCCESS element matters:** The middle section of a story must cover all dimensions of the Canvas — Simplicity, Unexpectedness, Concreteness, Credibility, Emotions. Tagging each beat keeps the story balanced and prevents over-indexing on one type (e.g., 5 data beats in a row).
+
+**Why priority + cluster + condensed_script matter:** This blueprint is a master source of truth — output skills (slides, social posts, TikTok, infographics) will consume it with different space constraints. Priority lets them select beats automatically: a 5-slide deck takes `essential` only; a 12-slide deck adds `important`. Cluster lets them group beats into sections or posts. Condensed script gives them a pre-written short version rather than truncating the full script awkwardly.
 
 **Show progress to the user** as you generate:
 ```
@@ -187,7 +201,12 @@ Write the complete output to `storytelling.json` in the current working director
 
       "transition_in": "string | null",
       "script": "string — spoken words, 100+ Thai chars or 50+ English words",
-      "transition_out": "string | null"
+      "transition_out": "string | null",
+
+      // — Output skill hints —
+      "priority": "essential | important | supplementary",
+      "cluster": "opening | problem | evidence | solution | closing",
+      "condensed_script": "string — 1-2 sentences for space-constrained formats"
     }
   ]
 }
