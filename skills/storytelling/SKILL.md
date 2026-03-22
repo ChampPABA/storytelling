@@ -197,7 +197,7 @@ Write the complete output to `storytelling.json` in the current working director
 After saving, tell the user:
 ```
 📄 Saved: storytelling.json (X beats)
-👉 Next: use an output skill (slides, post, script, etc.) to turn this into content
+👉 storytelling.json พร้อมแล้ว — นำไปใช้ต่อได้เลย
 ```
 
 Note: `storytelling.json` เป็น format-agnostic content plan — skill ใดก็ได้รับไปเป็น context แล้วตีความสู่ output format ของตัวเอง
