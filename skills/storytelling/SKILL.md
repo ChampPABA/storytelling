@@ -5,7 +5,7 @@ description: "Plan presentations using the Storytelling Canvas framework — fro
 
 # Storytelling — Presentation Planning Skill
 
-Turn any content into a structured story plan with speaker scripts and visual evidence notes. Built on the Storytelling Canvas framework (Kernbach) and slide design principles (Duarte, Reynolds, Alley).
+Turn any content into a structured story plan with speaker scripts and visual evidence notes. Built on the Storytelling Canvas framework (Kernbach) and presentation design principles (Duarte, Reynolds, Alley).
 
 ## What This Skill Produces
 
@@ -78,7 +78,7 @@ Show the blueprint to the user for confirmation before proceeding.
 
 ### Step 4: Generate Per-Beat Details
 
-Once the blueprint is approved, go straight to generating full details for every beat — do not produce an intermediate beat plan table. Beat count comes from duration (~1-2 min per beat), and S.T.A.R. moment belongs in the middle-to-late section of the story after tension has built, not in the first few beats.
+Once the blueprint is approved, generate full details for every beat directly. Skipping an intermediate beat plan table keeps the focus on story depth rather than a skeleton that could anchor thinking to the wrong format. Beat count comes from duration (~1-2 min per beat), and the S.T.A.R. moment belongs in the middle-to-late section after tension has built — not in the first few beats.
 
 Each beat has **2 layers**:
 
@@ -204,7 +204,7 @@ Note: `storytelling.json` เป็น format-agnostic content plan — skill �
 
 **On beat types:** Each beat has exactly one `type` — the primary narrative function (opening, problem, data, solution, star_moment, etc.). If a beat is trying to do two things at once (e.g., establish common ground AND deliver the S.T.A.R. moment), split it into two beats. The `success_element` field is separate — it tags which Canvas dimension the beat serves, not the narrative role.
 
-**On S.T.A.R. placement:** The S.T.A.R. moment is the climax of the story — it lands hardest when tension has been building through the Middle section. Placing it in the first 3 beats kills the arc before it starts. A 12-beat story should have its S.T.A.R. around beats 7-9.
+**On S.T.A.R. placement:** The S.T.A.R. moment is the climax of the story — it lands hardest when the audience has traveled through problem, data, and stakes. Placing it before that tension has built wastes the impact. S.T.A.R. belongs in the second half of the story, after the Middle section has done its work.
 
 **On beats vs slides:** Beats are story units, not slides. A beat represents one narrative idea — it may become 1 slide, multiple slides, or share a slide with another beat. The split into visual units is the output skill's responsibility. Don't think in slides when planning beats.
 
@@ -222,4 +222,4 @@ Read these when you need deeper knowledge:
 
 | File | When to read |
 |---|---|
-| `references/storytelling-canvas.md` | Step 3 (blueprint) — for SUCCESS formula, story roles, audience types |
+| `references/storytelling-canvas.md` | Step 3 (blueprint) — story roles, audience types, sparkline pattern; Step 4 (beats) — SUCCESS formula, script guidance |
