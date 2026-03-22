@@ -1,6 +1,6 @@
 ---
 name: storytelling
-description: "Plan presentations using the Storytelling Canvas framework — from raw content to a format-agnostic story blueprint with speaker scripts and visual evidence notes. Use this skill whenever the user wants to plan a presentation, create a slide deck outline, structure a pitch, design a talk, write presentation scripts, or prepare content before generating slides. Also triggers on: '/storytelling', 'วางแผน presentation', 'ทำ slide plan', 'plan slides', 'presentation outline', 'pitch deck plan', 'เตรียม slide', 'วางโครง presentation'. Use this even when the user just says 'I need to present X' or pastes content and says 'turn this into slides'. This skill creates the storytelling plan — the actual slide generation happens via /gslide afterward."
+description: "Plan presentations using the Storytelling Canvas framework — from raw content to a format-agnostic story blueprint with speaker scripts and visual evidence notes. Use this skill whenever the user wants to plan a presentation, create a slide deck outline, structure a pitch, design a talk, write presentation scripts, or prepare content before generating slides. Also triggers on: '/storytelling', 'วางแผน presentation', 'ทำ slide plan', 'plan slides', 'presentation outline', 'pitch deck plan', 'เตรียม slide', 'วางโครง presentation'. Use this even when the user just says 'I need to present X' or pastes content and says 'turn this into slides'. This skill creates the storytelling plan — the actual slide or content generation happens via a separate output skill afterward."
 ---
 
 # Storytelling — Presentation Planning Skill
@@ -13,9 +13,9 @@ A `storytelling.json` file containing:
 1. **Presentation Blueprint** — shared context for the entire story (topic, audience, goal, narrative arc)
 2. **Story Beats** — each beat is a content unit with: headline, speaker script, visual evidence, and story metadata
 
-Beats are story units, not slides. One beat may become 1 slide, multiple slides, or part of a slide — that mapping is `/gslide`'s responsibility.
+Beats are story units, not slides. One beat may become 1 slide, multiple slides, or part of a slide — that mapping is the output skill's responsibility.
 
-This file is a format-agnostic content plan — usable by `/gslide`, social media skills, TikTok scripts, or any other output format.
+This file is a format-agnostic content plan — usable by any output skill: slide generators, social media posts, TikTok scripts, articles, etc.
 
 ## Workflow — 5 Steps
 
@@ -197,14 +197,14 @@ Write the complete output to `storytelling.json` in the current working director
 After saving, tell the user:
 ```
 📄 Saved: storytelling.json (X beats)
-👉 Next: use /gslide to turn this into slides
+👉 Next: use an output skill (slides, post, script, etc.) to turn this into content
 ```
 
-Note: `storytelling.json` เป็น format-agnostic content plan — gslide, Facebook post skill, TikTok script skill หรือ skill ใดก็ได้รับไปเป็น context แล้วตีความสู่ output format ของตัวเอง
+Note: `storytelling.json` เป็น format-agnostic content plan — skill ใดก็ได้รับไปเป็น context แล้วตีความสู่ output format ของตัวเอง
 
 ## Important Principles
 
-**On beats vs slides:** Beats are story units, not slides. A beat represents one narrative idea — it may become 1 slide, multiple slides, or share a slide with another beat. The split into slides is `/gslide`'s responsibility. Don't think in slides when planning beats.
+**On beats vs slides:** Beats are story units, not slides. A beat represents one narrative idea — it may become 1 slide, multiple slides, or share a slide with another beat. The split into visual units is the output skill's responsibility. Don't think in slides when planning beats.
 
 **On headlines:** Every beat headline is a full-sentence assertion (Michael Alley's model). "ต้นทุนซ่อนเร้นสูงถึง 1.2 ล้านต่อปี" not "ต้นทุน". This is backed by research — audiences understand and remember assertion headlines significantly better than topic labels.
 
