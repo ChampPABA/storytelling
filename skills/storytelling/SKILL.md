@@ -1,21 +1,23 @@
 ---
 name: storytelling
-description: "Plan presentations using the Storytelling Canvas framework — from raw content to a complete slide-by-slide blueprint with speaker scripts and visual evidence notes. Use this skill whenever the user wants to plan a presentation, create a slide deck outline, structure a pitch, design a talk, write presentation scripts, or prepare content before generating slides. Also triggers on: '/storytelling', 'วางแผน presentation', 'ทำ slide plan', 'plan slides', 'presentation outline', 'pitch deck plan', 'เตรียม slide', 'วางโครง presentation'. Use this even when the user just says 'I need to present X' or pastes content and says 'turn this into slides'. This skill creates the storytelling plan — the actual slide generation happens via /gslide afterward."
+description: "Plan presentations using the Storytelling Canvas framework — from raw content to a format-agnostic story blueprint with speaker scripts and visual evidence notes. Use this skill whenever the user wants to plan a presentation, create a slide deck outline, structure a pitch, design a talk, write presentation scripts, or prepare content before generating slides. Also triggers on: '/storytelling', 'วางแผน presentation', 'ทำ slide plan', 'plan slides', 'presentation outline', 'pitch deck plan', 'เตรียม slide', 'วางโครง presentation'. Use this even when the user just says 'I need to present X' or pastes content and says 'turn this into slides'. This skill creates the storytelling plan — the actual slide generation happens via /gslide afterward."
 ---
 
 # Storytelling — Presentation Planning Skill
 
-Turn any content into a structured presentation plan with speaker scripts and visual evidence notes. Built on the Storytelling Canvas framework (Kernbach) and slide design principles (Duarte, Reynolds, Alley).
+Turn any content into a structured story plan with speaker scripts and visual evidence notes. Built on the Storytelling Canvas framework (Kernbach) and slide design principles (Duarte, Reynolds, Alley).
 
 ## What This Skill Produces
 
 A `storytelling.json` file containing:
-1. **Presentation Blueprint** — shared context for the entire deck (topic, audience, goal, style)
-2. **Per-Slide Plan** — for each slide: headline, speaker script, visual evidence, and story metadata
+1. **Presentation Blueprint** — shared context for the entire story (topic, audience, goal, narrative arc)
+2. **Story Beats** — each beat is a content unit with: headline, speaker script, visual evidence, and story metadata
+
+Beats are story units, not slides. One beat may become 1 slide, multiple slides, or part of a slide — that mapping is `/gslide`'s responsibility.
 
 This file is a format-agnostic content plan — usable by `/gslide`, social media skills, TikTok scripts, or any other output format.
 
-## Workflow — 6 Steps
+## Workflow — 5 Steps
 
 ### Step 1: Receive Content
 
@@ -37,7 +39,7 @@ Check what information you already have from the content and conversation. Only 
 |---|---|
 | **Audience** | Determines vocabulary, depth, emotional appeals |
 | **Goal (Before → After)** | What should the audience think/feel/do differently after? |
-| **Duration** | Determines slide count (~1-2 min per slide) |
+| **Duration** | Determines story pacing and beat count (~1-2 min per beat) |
 
 **Optional inputs (use smart defaults):**
 
@@ -64,7 +66,6 @@ Goal:           Before: [current state]
 One Big Idea:   [single sentence — the thesis]
 Storyline:      [Report / Explanation / Pitch / Drama]
 Sparkline:      [What Is ↔ What Could Be pattern]
-Slide Count:    [derived from duration]
 Style:          [visual style]
 Colors:         [primary / accent / background]
 Tone:           [professional / casual / inspiring]
@@ -78,52 +79,9 @@ Tone:           [professional / casual / inspiring]
 
 Show the blueprint to the user for confirmation before proceeding.
 
-### Step 4: Generate Slide Plan
+### Step 4: Generate Per-Beat Details
 
-Create a slide-by-slide plan as a table. Read `references/slide-design.md` for detailed guidance on slide types and sequencing.
-
-**Recommended structures by storyline type:**
-
-For **Pitch** (most common):
-```
-Title → Problem → Data → Unexpected → Divider →
-Solution → Process → ROI → S.T.A.R. → Comparison →
-Reward → CTA
-```
-
-For **Explanation**:
-```
-Title → Agenda → Concept 1 → Example → Concept 2 →
-Example → Concept 3 → Example → Synthesis → Takeaway
-```
-
-For **Report**:
-```
-Title → Executive Summary → Finding 1 → Finding 2 →
-Finding 3 → Comparison → Implications → Recommendations → CTA
-```
-
-**Display as a table:**
-
-```
-| #  | Type      | Story Role       | Sparkline   | Headline (assertion)                 | ⏱   |
-|----|-----------|------------------|-------------|--------------------------------------|------|
-| 1  | Title     | Opening          | —           | [presentation title]                 | 30s  |
-| 2  | Problem   | Start with Why   | What Is     | [full-sentence assertion 8-14 words] | 90s  |
-| ...| ...       | ...              | ...         | ...                                  | ...  |
-```
-
-**Rules for the plan:**
-- **Every headline — including title, divider, and CTA slides — must be a full-sentence assertion** (Alley model) of at least 20 Thai characters or 8 English words. Not a topic label, not a single phrase. Even the title slide needs a full sentence: "IFCG Digital Transformation: ลงทุนวันนี้เพื่อเติบโตอย่างยั่งยืนพร้อมรับอนาคต" not "IFCG Digital Transformation". Even a divider: "ถึงเวลาเปลี่ยนแปลงครั้งสำคัญที่สุดของ IFCG" not "ถึงเวลาเปลี่ยน"
-- Each slide has exactly **one idea**
-- Alternate between dense slides (data/process) and breathing slides (quote/divider/image) — never more than 3 dense slides in a row
-- Total time must fit within the stated duration (use the 80% rule — plan for 80% of available time)
-
-Ask the user: "แก้ไขอะไรไหม? เพิ่ม/ลด/สลับ slide ได้เลย" and iterate until they approve.
-
-### Step 5: Generate Per-Beat Details
-
-Once the plan is approved, generate full details for every beat. Each beat has **2 layers**:
+Once the blueprint is approved, generate full details for every beat. Each beat has **2 layers**:
 
 #### Layer 1: Briefing (for humans)
 
@@ -150,10 +108,9 @@ SUCCESS Element:[which element of the Canvas this beat addresses:
 Visual Evidence:[what should be shown to support the headline — described as content intent,
                  not as a prompt. e.g. "bar chart comparing 3 competitors" not "flat vector infographic"]
 Emotional Tone: [alarming / confident / curious / relieved / inspiring / shocking / nostalgic]
-Duration:       [seconds — pacing guide for delivery, not tied to any format]
 ```
 
-**Why SUCCESS element matters:** The middle section of a story must cover all dimensions of the Canvas — Simplicity, Unexpectedness, Concreteness, Credibility, Emotions. Tagging each beat keeps the story balanced and prevents over-indexing on one type (e.g., 5 data slides in a row).
+**Why SUCCESS element matters:** The middle section of a story must cover all dimensions of the Canvas — Simplicity, Unexpectedness, Concreteness, Credibility, Emotions. Tagging each beat keeps the story balanced and prevents over-indexing on one type (e.g., 5 data beats in a row).
 
 **Show progress to the user** as you generate:
 ```
@@ -163,7 +120,7 @@ Duration:       [seconds — pacing guide for delivery, not tied to any format]
 ...
 ```
 
-### Step 6: Save storytelling.json
+### Step 5: Save storytelling.json
 
 Write the complete output to `storytelling.json` in the current working directory.
 
@@ -213,8 +170,6 @@ Write the complete output to `storytelling.json` in the current working director
 
     // — Delivery —
     "tone": "string",
-    "duration_minutes": "number",
-    "beat_count": "number",
     "language": "string"
   },
   "beats": [
@@ -233,8 +188,7 @@ Write the complete output to `storytelling.json` in the current working director
 
       "transition_in": "string | null",
       "script": "string — spoken words, 100+ Thai chars or 50+ English words",
-      "transition_out": "string | null",
-      "duration_seconds": "number"
+      "transition_out": "string | null"
     }
   ]
 }
@@ -243,16 +197,18 @@ Write the complete output to `storytelling.json` in the current working director
 After saving, tell the user:
 ```
 📄 Saved: storytelling.json (X beats)
-👉 Next: use /gslide to generate slides, or any other output skill
+👉 Next: use /gslide to turn this into slides
 ```
 
 Note: `storytelling.json` เป็น format-agnostic content plan — gslide, Facebook post skill, TikTok script skill หรือ skill ใดก็ได้รับไปเป็น context แล้วตีความสู่ output format ของตัวเอง
 
 ## Important Principles
 
-**On headlines:** Every slide headline is a full-sentence assertion (Michael Alley's model). "ต้นทุนซ่อนเร้นสูงถึง 1.2 ล้านต่อปี" not "ต้นทุน". This is backed by research — audiences understand and remember assertion headlines significantly better than topic labels.
+**On beats vs slides:** Beats are story units, not slides. A beat represents one narrative idea — it may become 1 slide, multiple slides, or share a slide with another beat. The split into slides is `/gslide`'s responsibility. Don't think in slides when planning beats.
 
-**On content density:** Follow the Glance Test (Nancy Duarte) — if someone can't grasp the slide's point in 3 seconds, there's too much on it. Max 30 words of text per slide. Use visual evidence instead of bullet points.
+**On headlines:** Every beat headline is a full-sentence assertion (Michael Alley's model). "ต้นทุนซ่อนเร้นสูงถึง 1.2 ล้านต่อปี" not "ต้นทุน". This is backed by research — audiences understand and remember assertion headlines significantly better than topic labels.
+
+**On content density:** Follow the Glance Test (Nancy Duarte) — if someone can't grasp the beat's point in 3 seconds, there's too much on it. Max 30 words of text per beat. Use visual evidence instead of bullet points.
 
 **On emotional arc:** Stories that just dump information are forgettable. The Sparkline pattern (Duarte) alternates between "what is" (current reality, problems) and "what could be" (vision, solutions). This tension and resolution keeps the audience engaged and makes the final vision feel earned. For Pitch storylines, this is essential — tag each beat's `sparkline_position` carefully to maintain the rhythm.
 
@@ -265,4 +221,3 @@ Read these when you need deeper knowledge:
 | File | When to read |
 |---|---|
 | `references/storytelling-canvas.md` | Step 3 (blueprint) — for SUCCESS formula, story roles, audience types |
-| `references/slide-design.md` | Step 4 (plan) — for slide types, sequencing, layout patterns, timing |
