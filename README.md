@@ -1,18 +1,18 @@
 # storytelling
 
-A Claude Code skill for planning presentations using the Storytelling Canvas framework — from raw content to a complete slide-by-slide blueprint with speaker scripts and AI generation prompts.
+A Claude Code skill for planning presentations using the Storytelling Canvas framework — from raw content to a format-agnostic story blueprint with beat narratives and visual evidence notes.
 
 ## What it does
 
 ```
-/storytelling Help me create a 15-minute pitch deck about digital transformation for the board
+/storytelling Help me create a pitch deck about digital transformation for the board
 ```
 
 Produces a `storytelling.json` containing:
-- **Presentation Blueprint** — topic, audience, goal, storyline, visual style, color palette
-- **Per-slide plan** — assertion headline, speaker script, transitions, layout, generation prompt
+- **Canvas Blueprint** — topic, audience, goal, one big idea, storyline, sparkline
+- **Story Beats** — assertion headline, narrative, visual evidence, SUCCESS element, priority, cluster
 
-Pair with [`/gslide`](https://github.com/ChampPABA/gslide) to generate the actual Google Slides.
+The output is format-agnostic — any output skill (slides, social posts, articles) can consume it.
 
 ## Install
 
@@ -29,14 +29,13 @@ npx skills add https://github.com/ChampPABA/storytelling --skill storytelling -g
 ## Flow
 
 ```
-/storytelling (plan)                /gslide (generate)
+/storytelling (plan)                output skill (generate)
       │                                  │
       ├─ Receive content                 ├─ Read storytelling.json
-      ├─ Clarify missing info            ├─ Create/select presentation
-      ├─ Create blueprint                ├─ Gen slides one by one
-      ├─ Generate slide plan             └─ Report link
+      ├─ Clarify missing info            ├─ Adapt beats to format
+      ├─ Create blueprint                └─ Produce output
       ├─ User approve/iterate
-      ├─ Gen per-slide details
+      ├─ Gen per-beat details
       └─ Save storytelling.json
 ```
 
@@ -50,32 +49,30 @@ Built by combining established presentation design research:
 | **Sparkline** (Nancy Duarte) | What Is ↔ What Could Be emotional arc |
 | **Assertion-Evidence Model** (Michael Alley) | Full-sentence headlines + visual evidence |
 | **Presentation Zen** (Garr Reynolds) | Simplicity, white space, picture superiority |
-| **AI Prompt Engineering** | 9-component prompt anatomy for Gemini |
 
 ## Output Schema
 
 ```jsonc
 {
-  "presentation": {
+  "canvas": {
     "topic": "...",
     "audience": "...",
+    "audience_type": "doer | supplier | influencer | innovator",
     "goal": { "before": "...", "after": "..." },
     "one_big_idea": "...",
     "storyline": "pitch | explanation | report | drama",
-    "visual_style": "...",
-    "color_palette": { "primary": "#hex", "accent": "#hex", "background": "#hex" },
     "tone": "...",
-    "duration_minutes": 15
+    "language": "..."
   },
-  "slides": [{
+  "beats": [{
     "index": 1,
-    "tab": "infographic",
-    "type": "problem",
-    "headline": "Full-sentence assertion summarizing this slide's key message",
-    "script": "What the presenter says...",
-    "transition_in": "...",
-    "transition_out": "...",
-    "prompt": "Landscape 16:9 infographic. Split-screen layout..."
+    "type": "opening | problem | data | star_moment | solution | reward | cta | ...",
+    "headline": "Full-sentence assertion summarizing this beat's key message",
+    "narrative": "The substance of this beat — what needs to be communicated, in full prose",
+    "visual_evidence": "What should be shown to support the headline",
+    "success_element": "simplicity | unexpectedness | concreteness | credibility | emotions | storyline | star_moment | null",
+    "priority": "essential | important | supplementary",
+    "cluster": "opening | problem | evidence | solution | closing"
   }]
 }
 ```
