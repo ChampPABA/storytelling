@@ -1,21 +1,21 @@
 ---
 name: storytelling
-description: "Plan presentations using the Storytelling Canvas framework — from raw content to a format-agnostic story blueprint with speaker scripts and visual evidence notes. Use this skill whenever the user wants to plan a presentation, create a slide deck outline, structure a pitch, design a talk, write presentation scripts, or prepare content before generating slides. Also triggers on: '/storytelling', 'วางแผน presentation', 'ทำ slide plan', 'plan slides', 'presentation outline', 'pitch deck plan', 'เตรียม slide', 'วางโครง presentation'. Use this even when the user just says 'I need to present X' or pastes content and says 'turn this into slides'. This skill creates the storytelling plan — the actual slide or content generation happens via a separate output skill afterward."
+description: "Plan presentations using the Storytelling Canvas framework — from raw content to a format-agnostic story blueprint with beat narratives and visual evidence notes. Use this skill whenever the user wants to plan a presentation, create a slide deck outline, structure a pitch, design a talk, write a presentation outline, or prepare content before generating slides. Also triggers on: '/storytelling', 'วางแผน presentation', 'ทำ slide plan', 'plan slides', 'presentation outline', 'pitch deck plan', 'เตรียม slide', 'วางโครง presentation'. Use this even when the user just says 'I need to present X' or pastes content and says 'turn this into slides'. This skill creates the storytelling plan — the actual slide or content generation happens via a separate output skill afterward."
 ---
 
 # Storytelling — Presentation Planning Skill
 
-Turn any content into a structured story plan with speaker scripts and visual evidence notes. Built on the Storytelling Canvas framework (Kernbach) and presentation design principles (Duarte, Reynolds, Alley).
+Turn any content into a structured story plan with beat narratives and visual evidence notes. Built on the Storytelling Canvas framework (Kernbach) and presentation design principles (Duarte, Reynolds, Alley).
 
 ## What This Skill Produces
 
 A `storytelling.json` file containing:
 1. **Presentation Blueprint** — shared context for the entire story (topic, audience, goal, narrative arc)
-2. **Story Beats** — each beat is a content unit with: headline, speaker script, visual evidence, and story metadata
+2. **Story Beats** — each beat is a content unit with: headline, narrative, visual evidence, and story metadata
 
 Beats are story units, not slides. One beat may become 1 slide, multiple slides, or part of a slide — that mapping is the output skill's responsibility.
 
-This file is a format-agnostic content plan — usable by any output skill: slide generators, social media posts, TikTok scripts, articles, etc.
+This file is a format-agnostic content plan — any output skill can consume it and adapt it to its own format and constraints.
 
 ## Workflow — 5 Steps
 
@@ -47,7 +47,7 @@ Check what information you already have from the content and conversation. Only 
 | Tone | "professional" |
 | Language | Same as input content |
 
-If the user gives a brief like "pitch to investors, 10 min" — you already know audience (investors), goal (get funding), duration (10 min). Don't re-ask. Just confirm your interpretation.
+If the user gives a brief like "pitch to investors" — you already know audience (investors) and goal (get funding). Don't re-ask. Just confirm your interpretation.
 
 ### Step 3: Create Presentation Blueprint
 
@@ -89,17 +89,15 @@ Each beat has **2 layers**:
 
 ```
 Core Takeaway:  [1 sentence — if the audience forgets everything, they remember this]
-Transition IN:  [sentence connecting from previous beat — needed for every beat except the first]
-Script:         [what the presenter/author says — at least 100 Thai characters or 50 English words,
-                 even for short beats like dividers and CTAs. Complement, not duplicate the content]
-Transition OUT: [sentence setting up the next beat — needed for every beat except the last]
+Narrative:      [the substance of this beat — what needs to be communicated, in full prose.
+                 At least 100 Thai characters or 50 English words, even for short beats.
+                 This is content, not delivery: not "say this line", not "caption this image".
+                 Output skills will transform this into speaker notes, captions, post copy, etc.]
 ```
 
-**Why transitions matter:** Each beat must flow into the next — without transitions, the story feels like disconnected information. The transition_in reminds the audience where they are; the transition_out creates anticipation for what comes next. Beat 1 has no transition_in (it's the opening). The last beat has no transition_out (it ends with the CTA).
+Every beat needs a narrative, even short ones. A divider beat still has substance — what idea is crossing the threshold here? Write it out.
 
-Every beat needs a script, even short ones. A divider beat still has a spoken line that carries the audience across the arc.
-
-Read `references/storytelling-canvas.md` Section "SUCCESS Formula" for how to craft each script based on the beat's story role.
+Read `references/storytelling-canvas.md` Section "SUCCESS Formula" for how to craft each narrative based on the beat's story role.
 
 #### Layer 2: Beat Spec (format-agnostic)
 
@@ -117,13 +115,11 @@ Priority:       [essential | important | supplementary]
 Cluster:        [opening | problem | evidence | solution | closing]
                 — which narrative section this beat belongs to; output skills use this
                   to group beats when mapping to multi-post or section-based formats
-Condensed Script:[1–2 sentence version of the script for space-constrained formats
-                  such as social captions, infographic labels, or short-form video]
 ```
 
 **Why SUCCESS element matters:** The middle section of a story must cover all dimensions of the Canvas — Simplicity, Unexpectedness, Concreteness, Credibility, Emotions. Tagging each beat keeps the story balanced and prevents over-indexing on one type (e.g., 5 data beats in a row).
 
-**Why priority + cluster + condensed_script matter:** This blueprint is a master source of truth — output skills (slides, social posts, TikTok, infographics) will consume it with different space constraints. Priority lets them select beats automatically: a 5-slide deck takes `essential` only; a 12-slide deck adds `important`. Cluster lets them group beats into sections or posts. Condensed script gives them a pre-written short version rather than truncating the full script awkwardly.
+**Why priority + cluster matter:** This blueprint is a master source of truth — output skills (slides, social posts, TikTok, infographics) will consume it with different space constraints. Priority lets them select beats automatically: a 5-slide deck takes `essential` only; a 12-slide deck adds `important`. Cluster lets them group beats into sections or posts. Each output skill is responsible for adapting the `narrative` into its own format-specific writing — that work belongs there, not here.
 
 **Show progress to the user** as you generate:
 ```
@@ -181,7 +177,7 @@ Write the complete output to `storytelling.json` in the current working director
       "humanity": "string — how it contributes to something larger"
     },
 
-    // — Delivery —
+    // — Style —
     "tone": "string",
     "language": "string"
   },
@@ -199,14 +195,11 @@ Write the complete output to `storytelling.json` in the current working director
       "content": ["array of specific data/text items to include"],
       "core_takeaway": "string — 1 sentence: if they forget everything else, they remember this",
 
-      "transition_in": "string | null",
-      "script": "string — spoken words, 100+ Thai chars or 50+ English words",
-      "transition_out": "string | null",
+      "narrative": "string — substance of this beat in full prose, 100+ Thai chars or 50+ English words",
 
       // — Output skill hints —
       "priority": "essential | important | supplementary",
-      "cluster": "opening | problem | evidence | solution | closing",
-      "condensed_script": "string — 1-2 sentences for space-constrained formats"
+      "cluster": "opening | problem | evidence | solution | closing"
     }
   ]
 }
@@ -229,7 +222,7 @@ Note: `storytelling.json` เป็น format-agnostic content plan — skill �
 
 **On headlines:** Every beat headline is a full-sentence assertion (Michael Alley's model). "ต้นทุนซ่อนเร้นสูงถึง 1.2 ล้านต่อปี" not "ต้นทุน". This is backed by research — audiences understand and remember assertion headlines significantly better than topic labels.
 
-**On content density:** Each beat carries exactly one idea. If you find yourself putting two arguments, two data points, or two emotional appeals into a single beat — split it. The script can elaborate, but the headline and core takeaway must be singular and sharp. Audiences remember one thing per moment, not five.
+**On content density:** Each beat carries exactly one idea. If you find yourself putting two arguments, two data points, or two emotional appeals into a single beat — split it. The narrative can elaborate, but the headline and core takeaway must be singular and sharp. Audiences remember one thing per moment, not five.
 
 **On emotional arc:** Stories that just dump information are forgettable. The Sparkline pattern (Duarte) alternates between "what is" (current reality, problems) and "what could be" (vision, solutions). This tension and resolution keeps the audience engaged and makes the final vision feel earned. For Pitch storylines, this is essential — tag each beat's `sparkline_position` carefully to maintain the rhythm.
 
@@ -241,4 +234,4 @@ Read these when you need deeper knowledge:
 
 | File | When to read |
 |---|---|
-| `references/storytelling-canvas.md` | Step 3 (blueprint) — story roles, audience types, sparkline pattern; Step 4 (beats) — SUCCESS formula, script guidance |
+| `references/storytelling-canvas.md` | Step 3 (blueprint) — story roles, audience types, sparkline pattern; Step 4 (beats) — SUCCESS formula, narrative guidance |
