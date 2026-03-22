@@ -1,19 +1,19 @@
 ---
 name: storytelling
-description: "Plan presentations using the Storytelling Canvas framework — from raw content to a complete slide-by-slide blueprint with speaker scripts and AI generation prompts. Use this skill whenever the user wants to plan a presentation, create a slide deck outline, structure a pitch, design a talk, write presentation scripts, or prepare content before generating slides. Also triggers on: '/storytelling', 'วางแผน presentation', 'ทำ slide plan', 'plan slides', 'presentation outline', 'pitch deck plan', 'เตรียม slide', 'วางโครง presentation'. Use this even when the user just says 'I need to present X' or pastes content and says 'turn this into slides'. This skill creates the plan — the actual slide generation happens via /gslide afterward."
+description: "Plan presentations using the Storytelling Canvas framework — from raw content to a complete slide-by-slide blueprint with speaker scripts and visual evidence notes. Use this skill whenever the user wants to plan a presentation, create a slide deck outline, structure a pitch, design a talk, write presentation scripts, or prepare content before generating slides. Also triggers on: '/storytelling', 'วางแผน presentation', 'ทำ slide plan', 'plan slides', 'presentation outline', 'pitch deck plan', 'เตรียม slide', 'วางโครง presentation'. Use this even when the user just says 'I need to present X' or pastes content and says 'turn this into slides'. This skill creates the storytelling plan — the actual slide generation happens via /gslide afterward."
 ---
 
 # Storytelling — Presentation Planning Skill
 
-Turn any content into a structured presentation plan with speaker scripts and slide generation prompts. Built on the Storytelling Canvas framework (Kernbach), slide design principles (Duarte, Reynolds, Alley), and AI prompt engineering best practices.
+Turn any content into a structured presentation plan with speaker scripts and visual evidence notes. Built on the Storytelling Canvas framework (Kernbach) and slide design principles (Duarte, Reynolds, Alley).
 
 ## What This Skill Produces
 
 A `storytelling.json` file containing:
 1. **Presentation Blueprint** — shared context for the entire deck (topic, audience, goal, style)
-2. **Per-Slide Plan** — for each slide: briefing (for humans) + prompt (for gslide)
+2. **Per-Slide Plan** — for each slide: headline, speaker script, visual evidence, and story metadata
 
-This file is the bridge to `/gslide` which generates the actual Google Slides.
+This file is a format-agnostic content plan — usable by `/gslide`, social media skills, TikTok scripts, or any other output format.
 
 ## Workflow — 6 Steps
 
@@ -106,11 +106,11 @@ Finding 3 → Comparison → Implications → Recommendations → CTA
 **Display as a table:**
 
 ```
-| #  | Type      | Story Role       | Sparkline   | Headline (assertion)              | Layout     | ⏱   |
-|----|-----------|------------------|-------------|-----------------------------------|------------|------|
-| 1  | Title     | Opening          | —           | [presentation title]              | full-bleed | 30s  |
-| 2  | Problem   | Start with Why   | What Is     | [full-sentence assertion 8-14 words] | split L-R  | 90s  |
-| ...| ...       | ...              | ...         | ...                               | ...        | ...  |
+| #  | Type      | Story Role       | Sparkline   | Headline (assertion)                 | ⏱   |
+|----|-----------|------------------|-------------|--------------------------------------|------|
+| 1  | Title     | Opening          | —           | [presentation title]                 | 30s  |
+| 2  | Problem   | Start with Why   | What Is     | [full-sentence assertion 8-14 words] | 90s  |
+| ...| ...       | ...              | ...         | ...                                  | ...  |
 ```
 
 **Rules for the plan:**
@@ -121,63 +121,45 @@ Finding 3 → Comparison → Implications → Recommendations → CTA
 
 Ask the user: "แก้ไขอะไรไหม? เพิ่ม/ลด/สลับ slide ได้เลย" and iterate until they approve.
 
-### Step 5: Generate Per-Slide Details
+### Step 5: Generate Per-Beat Details
 
-Once the plan is approved, generate full details for every slide. Each slide has **3 layers**:
+Once the plan is approved, generate full details for every beat. Each beat has **2 layers**:
 
 #### Layer 1: Briefing (for humans)
 
 ```
-Core Takeaway:  [1 sentence — if presenter forgets everything, say this]
-Transition IN:  [sentence connecting from previous slide — REQUIRED for every slide except slide 1]
-Script:         [what the presenter says — at least 100 Thai characters or 50 English words per slide,
-                 even for short slides like dividers and CTAs. Complement, not duplicate the slide]
-Transition OUT: [sentence setting up the next slide — REQUIRED for every slide except the last]
+Core Takeaway:  [1 sentence — if the audience forgets everything, they remember this]
+Transition IN:  [sentence connecting from previous beat — needed for every beat except the first]
+Script:         [what the presenter/author says — at least 100 Thai characters or 50 English words,
+                 even for short beats like dividers and CTAs. Complement, not duplicate the content]
+Transition OUT: [sentence setting up the next beat — needed for every beat except the last]
 ```
 
-**Transition and script rules:**
-- Slide 1 (title): no transition_in needed, but MUST have transition_out
-- Last slide: MUST have transition_in, no transition_out needed
-- All other slides: MUST have both transition_in AND transition_out
-- Every slide without exception must have a `script` field with substantial content (at least 100 Thai characters). Even a divider slide needs a brief spoken line like "ทีนี้เรามาดูกันว่าทำไมการเปลี่ยนแปลงนี้จึงสำคัญสำหรับทุกคนในห้องนี้ และสิ่งที่เราเตรียมไว้จะช่วยได้อย่างไร"
+**Why transitions matter:** Each beat must flow into the next — without transitions, the story feels like disconnected information. The transition_in reminds the audience where they are; the transition_out creates anticipation for what comes next. Beat 1 has no transition_in (it's the opening). The last beat has no transition_out (it ends with the CTA).
 
-Read `references/storytelling-canvas.md` Section "SUCCESS Formula" for how to craft each script based on the slide's story role.
+Every beat needs a script, even short ones. A divider beat still has a spoken line that carries the audience across the arc.
 
-#### Layer 2: Slide Spec (structural)
+Read `references/storytelling-canvas.md` Section "SUCCESS Formula" for how to craft each script based on the beat's story role.
+
+#### Layer 2: Beat Spec (format-agnostic)
 
 ```
-Tab:            [infographic / slide / image]
-Type:           [title / problem / data / quote / comparison / timeline / CTA / ...]
-Layout:         [split-screen / 3-cards / timeline / full-bleed / bento-grid / hub-spoke / ...]
-Composition:    [rule-of-thirds / centered / asymmetrical]
-Visual Evidence:[chart type / image description / icon set — never bullet points as main content]
-Emotional Tone: [alarming / confident / curious / relieved / inspiring]
-Duration:       [seconds]
+SUCCESS Element:[which element of the Canvas this beat addresses:
+                 simplicity / unexpectedness / concreteness / credibility / emotions / storyline / star_moment
+                 — null for opening, divider, reward, and CTA beats]
+Visual Evidence:[what should be shown to support the headline — described as content intent,
+                 not as a prompt. e.g. "bar chart comparing 3 competitors" not "flat vector infographic"]
+Emotional Tone: [alarming / confident / curious / relieved / inspiring / shocking / nostalgic]
+Duration:       [seconds — pacing guide for delivery, not tied to any format]
 ```
 
-#### Layer 3: Generation Prompt (for gslide)
-
-Read `references/prompt-engineering.md` for the complete prompt anatomy. Assemble the prompt following this order (most important first):
-
-```
-[Format]      Landscape 16:9 [tab type].
-[Layout]      [layout pattern name] layout.
-[Style]       [visual style from blueprint].
-[Title]       Title: "[exact assertion headline]".
-[Content]     [specific data/text/structure to display].
-[Color]       [palette from blueprint] on [background].
-[Composition] [composition style], generous white space.
-[Quality]     Clean, professional, sharp focus.
-[Constraints] [negative instructions — no bullets, no decorative elements, text language].
-```
-
-The prompt must be self-contained — gslide reads only the prompt, not the rest of the slide spec.
+**Why SUCCESS element matters:** The middle section of a story must cover all dimensions of the Canvas — Simplicity, Unexpectedness, Concreteness, Credibility, Emotions. Tagging each beat keeps the story balanced and prevents over-indexing on one type (e.g., 5 data slides in a row).
 
 **Show progress to the user** as you generate:
 ```
-กำลังสร้างรายละเอียด 12 slides...
-✅ Slide 1/12 — Title
-✅ Slide 2/12 — Problem
+กำลังสร้างรายละเอียด 12 beats...
+✅ Beat 1/12 — Opening
+✅ Beat 2/12 — Common Ground
 ...
 ```
 
@@ -189,51 +171,70 @@ Write the complete output to `storytelling.json` in the current working director
 
 ```jsonc
 {
-  "presentation": {
+  "canvas": {
+    // — General Conditions (Kernbach) —
     "topic": "string",
     "audience": "string",
+    "audience_type": "doer | supplier | influencer | innovator",
+    "audience_analysis": {
+      "before": {
+        "think": "string — what they currently believe",
+        "feel": "string — how they currently feel",
+        "know": "string — what they currently know",
+        "want": "string — what they currently want to do"
+      },
+      "after": {
+        "think": "string — what they should believe",
+        "feel": "string — how they should feel",
+        "know": "string — what they should know",
+        "want": "string — what they should want to do"
+      }
+    },
     "goal": {
-      "before": "string — audience state before",
-      "after": "string — audience state after"
+      "before": "string — summary of audience state before",
+      "after": "string — summary of desired state after"
     },
-    "one_big_idea": "string — single thesis sentence",
+    "one_big_idea": "string — single thesis sentence, the one thing they must remember",
+    "common_ground": "string — shared experience or vision between presenter and audience",
+
+    // — Story Architecture —
     "storyline": "pitch | explanation | report | drama",
+    "plot_type": "man_in_a_hole | rags_to_riches | cinderella | icarus | riches_to_rags | oedipus",
+    "conflict_type": "self_vs_self | self_vs_others | self_vs_environment",
     "sparkline_type": "what_is_vs_what_could_be | progressive | data_driven | hero_journey",
-    "visual_style": "string",
-    "color_palette": {
-      "primary": "#hex",
-      "accent": "#hex",
-      "background": "#hex"
+    "star_moment_index": "number — index of the S.T.A.R. moment beat",
+
+    // — Ending —
+    "reward": {
+      "personal": "string — how the audience personally benefits",
+      "sphere": "string — how it benefits people around them",
+      "humanity": "string — how it contributes to something larger"
     },
+
+    // — Delivery —
     "tone": "string",
     "duration_minutes": "number",
-    "slide_count": "number",
+    "beat_count": "number",
     "language": "string"
   },
-  "slides": [
+  "beats": [
     {
       "index": 1,
-      "tab": "infographic | slide | image",
-      "type": "title | problem | data | quote | comparison | timeline | process | divider | reward | cta | ...",
-      "story_role": "string — e.g. beginning/start_with_why",
+      "type": "opening | common_ground | problem | data | star_moment | divider | solution | process | roi | comparison | reward | cta | ...",
+      "story_role": "string — e.g. beginning/start_with_why, middle/credibility, end/reward",
+      "success_element": "simplicity | unexpectedness | concreteness | credibility | emotions | storyline | star_moment | null",
       "sparkline_position": "what_is | what_could_be | shift | neutral",
       "emotional_tone": "string",
 
-      "headline": "string — full-sentence assertion",
-      "visual_evidence": "string — what visual supports the assertion",
-      "content": ["array of specific data/text items"],
-      "core_takeaway": "string — 1 sentence safety net",
+      "headline": "string — full-sentence assertion (Alley model)",
+      "visual_evidence": "string — what should be shown to support the headline, described as content intent",
+      "content": ["array of specific data/text items to include"],
+      "core_takeaway": "string — 1 sentence: if they forget everything else, they remember this",
 
-      "transition_in": "string",
-      "script": "string — 125-300 words",
-      "transition_out": "string",
-      "duration_seconds": "number",
-
-      "layout": "string — layout pattern name",
-      "composition": "string — rule-of-thirds | centered | asymmetrical",
-      "quality_modifiers": "string",
-      "negative": "string — things to exclude",
-      "prompt": "string — complete self-contained prompt for gslide"
+      "transition_in": "string | null",
+      "script": "string — spoken words, 100+ Thai chars or 50+ English words",
+      "transition_out": "string | null",
+      "duration_seconds": "number"
     }
   ]
 }
@@ -241,9 +242,11 @@ Write the complete output to `storytelling.json` in the current working director
 
 After saving, tell the user:
 ```
-📄 Saved: storytelling.json (X slides)
-👉 Next: use /gslide to generate the actual slides
+📄 Saved: storytelling.json (X beats)
+👉 Next: use /gslide to generate slides, or any other output skill
 ```
+
+Note: `storytelling.json` เป็น format-agnostic content plan — gslide, Facebook post skill, TikTok script skill หรือ skill ใดก็ได้รับไปเป็น context แล้วตีความสู่ output format ของตัวเอง
 
 ## Important Principles
 
@@ -251,9 +254,9 @@ After saving, tell the user:
 
 **On content density:** Follow the Glance Test (Nancy Duarte) — if someone can't grasp the slide's point in 3 seconds, there's too much on it. Max 30 words of text per slide. Use visual evidence instead of bullet points.
 
-**On emotional arc:** Presentations that just dump information are forgettable. The Sparkline pattern (Duarte) alternates between "what is" (current reality, problems) and "what could be" (vision, solutions). This creates tension and resolution that keeps audiences engaged. For Pitch storylines, this is essential.
+**On emotional arc:** Stories that just dump information are forgettable. The Sparkline pattern (Duarte) alternates between "what is" (current reality, problems) and "what could be" (vision, solutions). This tension and resolution keeps the audience engaged and makes the final vision feel earned. For Pitch storylines, this is essential — tag each beat's `sparkline_position` carefully to maintain the rhythm.
 
-**On prompts:** The generation prompt must be specific and literal. Gemini "Help me visualize" fails on vague prompts and figurative language. Include exact layout names, specific data, color hex codes, and explicit constraints. Read `references/prompt-engineering.md` for the complete guide.
+**On SUCCESS elements:** The middle section of a story must cover all 7 elements of the Canvas (Simplicity, Unexpectedness, Concreteness, Credibility, Emotions, Storylines, S.T.A.R. moment). Tagging each beat keeps you honest — if you look at your `success_element` tags and see only "data/credibility" beats, the story is too dry. Balance information with emotion.
 
 ## Reference Files
 
@@ -263,4 +266,3 @@ Read these when you need deeper knowledge:
 |---|---|
 | `references/storytelling-canvas.md` | Step 3 (blueprint) — for SUCCESS formula, story roles, audience types |
 | `references/slide-design.md` | Step 4 (plan) — for slide types, sequencing, layout patterns, timing |
-| `references/prompt-engineering.md` | Step 5 (detail) — for prompt anatomy, style vocabulary, constraints |
