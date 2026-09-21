@@ -2,185 +2,119 @@
 
 Based on Sebastian Kernbach's "Storytelling Canvas: A visual framework for developing and delivering resonating stories."
 
+The canvas has two parts: **General Conditions** (the frame: Topic, Audience, Goal, Before, After) and **Story Elements** (Beginning, Middle, End).
+
 ## Table of Contents
 1. [General Conditions](#general-conditions)
-2. [Story Elements — 3-Act Model](#story-elements)
-3. [SUCCESS Formula](#success-formula)
-4. [Sparkline Pattern](#sparkline-pattern)
-5. [Supporting Frameworks](#supporting-frameworks)
+2. [Beginning](#beginning)
+3. [Middle: SUCCESS Formula](#middle-success-formula)
+4. [End](#end)
 
 ---
 
 ## General Conditions
 
-Before building any story, define three things:
-
 ### Topic
 What is the story about? Frame it as a question or tension, not just a label.
 
 ### Audience
-Who are they? What do they already know? What do they care about?
+Who is the story's audience, and what are their needs? Kernbach uses the empathy map here: identify their **pains** (problems they face) and **gains** (benefits they want). These feed Start with Why directly.
 
-Use the **Before/After framework** to clarify the transformation you want:
+### Goal
+What do *you* want to achieve with this story? This is the presenter's outcome: a decision, a budget, a signup, a change in behavior.
 
-| Dimension | Before (current state) | After (desired state) |
-|-----------|----------------------|---------------------|
+### Before / After
+Reflect on what the audience **thinks, feels, knows, and wants** before the story, and anticipate what they should think, feel, know, and want after it.
+
+| Lens | Before (current state) | After (desired state) |
+|------|----------------------|---------------------|
 | **Think** | What do they currently believe? | What should they believe? |
 | **Feel** | How do they currently feel? | How should they feel? |
 | **Know** | What do they currently know? | What should they know? |
 | **Want** | What do they currently want to do? | What should they want to do? |
 
-### Audience Types (for Call to Action)
-Different audiences need different CTAs:
-- **Doers** — people who will implement → give concrete next steps
-- **Suppliers** — people who control resources → show ROI and ask for budget/approval
-- **Influencers** — people who shape opinions → give them shareable takeaways
-- **Innovators** — people who create new things → inspire with vision and possibilities
-
-### Goal
-What do you want the presentation to achieve? Define in terms of the Before→After shift.
+**Goal vs After:** Goal lives with the presenter; After lives in the audience's head. The After state is what makes the Goal possible. Example: Goal = "board approves 2M THB". After.want = "approve today because waiting costs more".
 
 ---
 
-## Story Elements
+## Beginning
 
-### 3-Act Model
-
-#### Act 1: Beginning
-Three components to open powerfully:
+Three elements create an impactful start.
 
 **Start with Why**
-Don't start with "what we'll cover today." Start with why the audience should care. Connect to their pains (problems they face) or gains (benefits they'll receive).
+Keep the story from getting lost in the "what" and "how". Answer "why should I, as the audience, care?" To answer it, you need the audience check first: address their pains and gains.
 
 **Common Ground**
-Build connection through:
-- Shared past experiences ("We've all seen...")
-- Shared future vision ("Imagine if we could...")
+Connect through shared experience:
+- Looking into the past: common events, interests, memories, or history ("We've all seen...")
+- Looking into the future: a mutually desired vision or outcome ("Imagine if we could...")
+- Why are you uniquely qualified to be their guide? What similar journey have you been on?
 
 **One Big Idea**
-The single most important message, expressed in one complete sentence. Everything in the presentation supports this sentence. If the audience remembers only one thing, this is it.
+Focus on one big idea that conveys your unique perspective and communicates what is at stake. You should be able to state it in one complete sentence. If the audience remembers only one thing, this is it.
 
-#### Act 2: Middle
-Use the SUCCESS formula (see below) to balance information and emotion.
+---
 
-#### Act 3: End
-Two components to close with impact:
+## Middle: SUCCESS Formula
+
+Seven elements that find the right balance of information and emotion. The first five (SUCCE) come from Heath & Heath's *Made to Stick*; Kernbach adds Storylines and S.T.A.R. moment.
+
+Good stories sit in the high-information, high-emotion quadrant: information alone is a fact-based story, emotion alone is an entertaining story, neither is boring. Aim for compelling.
+
+### S: Simplicity
+What is the key point, and how do you support it? Use the **rule of three**: support the argument with three pieces of evidence. In journalism this is "the lead": find the core and prioritize. Examples: "Apple iPod: 1000 songs in your pocket", "Southwest Airlines: We are THE low-fare airline".
+
+### U: Unexpectedness
+Create curiosity and surprise. Pose critical questions, break a pattern, or open a gap that you fill later, so the audience comes along on a journey.
+
+### C: Concreteness
+Turn the abstract into something tangible: real examples, concrete images, specific numbers, analogies and metaphors ("my topic is like... sailing the sea"). "Revenue grew" becomes "Revenue grew 47% in 6 months, from 12M to 17.6M."
+
+### C: Credibility / Truth
+Build trust with:
+- **Personal stories**: "I saw this firsthand when..."
+- **Quotes** from people or organizations the audience accepts
+- **Social proof**: "3 of our competitors have already..."
+- **Statistics** that legitimize the argument
+
+Only use evidence that exists in the source content. If it's missing, name what's needed instead of inventing it.
+
+### E: Emotions
+Use images, visuals, personal stories, and strong labels. Draw on:
+- **Positive**: joy from benefits, relief from a solved problem, imagining a better future
+- **Negative**: anger, fear, sadness, disgust, to make the stakes felt
+
+Of the seven basic emotions, one is positive (joy), one neutral (surprise), five negative. For finer positive choices, Ekman lists enjoyable emotions such as relief, wonder, pride in achievement, elevation, and gratitude.
+
+### S: Storylines
+Pick the basic story type (Dan Roam's adaptation):
+- **Report**: describing facts
+- **Explanation**: step by step, building understanding
+- **Pitch**: argumentative, overcoming a challenge
+- **Drama**: narrative, down to bottom and up to top
+
+Choose by the Goal: approval/buy-in → pitch; teaching → explanation; presenting results → report; inspiring → drama.
+
+### S: S.T.A.R. Moment
+**Something They'll Always Remember**: a memorable dramatization, a repeatable soundbite, an evocative visual, a shocking statistic, or a strong label / alliteration. Design it deliberately; it's the emotional peak people recall weeks later (Kahneman's peak-end rule: experiences are remembered by their peak and their end).
+
+---
+
+## End
+
+Two elements give the story a good finish.
 
 **Reward**
-What does the audience get? Frame at three levels:
-1. Personal benefit — how it helps them directly
-2. Team/community benefit — how it helps people around them
-3. Global/humanity benefit — how it contributes to something larger
+Appeal to the audience's needs at three levels:
+1. **Personal**: how they benefit, materially or emotionally, from adopting the idea
+2. **Sphere**: how it helps friends, peers, or direct reports, and how they can use it to influence those around them
+3. **Humanity**: how the idea helps people or the planet ("appeal to higher ambition")
 
 **Call to Action**
-A concrete, specific invitation tailored to the audience type (Doer/Supplier/Influencer/Innovator). Not "let's discuss" but "approve this budget by Friday."
+A concrete invitation to do something. Match it to who is in the room:
+- **Doers**: make a decision, respond, or attempt something
+- **Suppliers**: acquire, fund, or provide resources
+- **Influencers**: activate, empower, or promote the idea
+- **Innovators**: create, discover, or pioneer in a new way
 
----
-
-## SUCCESS Formula
-
-Adapted from Heath & Heath, this guides the middle section of the presentation. Each element suggests a type of beat content:
-
-### S — Simplicity
-Present the core message clearly. Use the **Rule of Three** — support your argument with exactly 3 points, 3 examples, or 3 reasons. The human brain processes groups of 3 naturally.
-
-→ Beat examples: data comparison beat, key-point beat with 3 supporting items
-
-### U — Unexpectedness
-Create surprise or curiosity. Break a pattern the audience expects. Pose a question and don't answer it immediately — create an information gap that pulls the audience forward.
-
-→ Beat examples: provocative question beat, surprising statistic beat, "did you know" reveal beat
-
-### C — Concreteness
-Replace abstract concepts with tangible examples. Use real stories, physical metaphors, and specific numbers. "Revenue grew" → "Revenue grew 47% in 6 months, from 12M to 17.6M."
-
-→ Beat examples: case study beat, example beat, comparison beat with specific numbers
-
-### C — Credibility
-Build trust through evidence:
-- **Personal experience** — "I saw this firsthand when..."
-- **Social proof** — "3 of our competitors have already..."
-- **Statistics** — hard numbers from reliable sources
-- **Authority** — expert quotes or endorsements
-
-→ Beat examples: data/chart beat, quote/testimonial beat, credential beat
-
-### E — Emotions
-Move the audience. Use both:
-- **Positive emotions** — hope, relief, pride, excitement (for "what could be" beats)
-- **Negative emotions** — fear, frustration, urgency (for "what is" beats)
-
-The emotional arc should match the Sparkline pattern — tension in "what is" moments, relief in "what could be" moments.
-
-→ Beat examples: emotional image beat, story beat, S.T.A.R. moment beat
-
-### S — Storylines
-Choose the narrative vehicle:
-- **Report** — factual, sequential, objective
-- **Explanation** — educational, building complexity gradually
-- **Pitch** — persuasive, alternating problem/solution
-- **Drama** — narrative, with characters, conflict, resolution
-
-### S — S.T.A.R. Moment
-**Something They'll Always Remember** — the peak moment the audience will recall weeks later. This is:
-- A shocking statistic displayed dramatically
-- An emotional image that stays with people
-- A memorable phrase or tagline
-- A live demonstration or unexpected prop
-
-Design this moment deliberately. It should be the emotional climax of your Sparkline.
-
-→ Beat examples: dramatic single-focus beat, single-number beat, quote beat
-
----
-
-## Sparkline Pattern
-
-From Nancy Duarte's "Resonate." The most powerful presentations don't just go from point A to point B. They oscillate between "what is" (current reality) and "what could be" (the vision).
-
-```
-What Could Be  ╱╲    ╱╲    ╱╲    ╱── New Bliss
-               ╱  ╲  ╱  ╲  ╱  ╲  ╱
-──────────────╱────╲╱────╲╱────╲╱────
-What Is       ╲
-```
-
-**Beginning:** Start in "what is" (the problem, the current state)
-**Middle:** Alternate back and forth — show a problem, then show the possibility, then another problem, then another possibility
-**End:** Land on "what could be" permanently — the "New Bliss" where the audience sees the transformed future
-
-**Why this works:** Each shift creates tension (what is) and then relief (what could be). This emotional rhythm keeps the audience engaged and makes the final vision feel earned, not imposed.
-
-**Per-beat sparkline position:**
-- Problem / evidence beats = `what_is`
-- Solution / possibility beats = `what_could_be`
-- S.T.A.R. moment beat = `shift`
-- Opening / divider / CTA beats = `neutral`
-
----
-
-## Supporting Frameworks
-
-### Peak-End Rule (Kahneman)
-People judge experiences primarily by two moments: the **emotional peak** (strongest feeling) and the **ending**. Design your S.T.A.R. moment as the peak and your CTA as a meaningful end.
-
-### 6 Basic Plot Types
-Use these as narrative templates:
-- **Rags to Riches** — from struggling to thriving (good for transformation stories)
-- **Man in a Hole** — things were fine, something went wrong, now we fix it
-- **Cinderella** — unexpected success through the right approach
-- **Icarus** — warning story about hubris or overreach
-- **Riches to Rags** — decline that needs to be reversed (good for urgency)
-- **Oedipus** — discovering an uncomfortable truth that changes everything
-
-### 3 Types of Conflict
-Every engaging story has conflict:
-- **Self vs Self** — internal struggle, difficult decisions
-- **Self vs Others** — competition, disagreement, market forces
-- **Self vs Environment** — market conditions, regulations, technology shifts
-
-### Character Archetypes
-The audience is the hero, not the presenter. Position yourself as:
-- **Mentor** — guiding the audience to success (most common in business)
-- **Herald** — bringing news that changes everything
-- **Ally** — working alongside the audience to solve the problem
+Not "let's discuss" but "approve this budget by Friday".

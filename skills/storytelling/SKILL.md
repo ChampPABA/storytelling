@@ -1,246 +1,120 @@
 ---
 name: storytelling
-description: "Plan presentations using the Storytelling Canvas framework — from raw content to a format-agnostic story blueprint with beat narratives and visual evidence notes. Use this skill whenever the user wants to plan a presentation, create a slide deck outline, structure a pitch, design a talk, write a presentation outline, or prepare content before generating slides. Also triggers on: '/storytelling', 'วางแผน presentation', 'ทำ slide plan', 'plan slides', 'presentation outline', 'pitch deck plan', 'เตรียม slide', 'วางโครง presentation'. Use this even when the user just says 'I need to present X' or pastes content and says 'turn this into slides'. This skill creates the storytelling plan — the actual slide or content generation happens via a separate output skill afterward."
+description: "Build a Storytelling Canvas (Kernbach) for any presentation, pitch, talk, or message: guides the user through Topic, Audience, Goal, Before and After, then fills the 12 story boxes (Beginning / SUCCESS middle / End) and saves storytelling-canvas.json plus a spoken summary. Use this whenever the user wants to plan what a presentation or pitch should say, figure out the story or key message before making slides, prepare a talk, or says '/storytelling', 'storytelling canvas', 'วางแผน presentation', 'วางโครง presentation', 'คิด story', 'เตรียม pitch', 'จะไป present เรื่อง X'. Use it even when the user just pastes content and says 'turn this into a presentation': the canvas comes first. This skill decides the story only; slide layout, beats, and scripts belong to a presentation-planner or slide skill that reads the canvas afterward."
 ---
 
-# Storytelling — Presentation Planning Skill
+# Storytelling Canvas
 
-Turn any content into a structured story plan with beat narratives and visual evidence notes. Built on the Storytelling Canvas framework (Kernbach) and presentation design principles (Duarte, Reynolds, Alley).
+Turn raw content into a filled **Storytelling Canvas** (Sebastian Kernbach, see `references/storytelling-canvas.md`). The canvas answers *what story are we telling, to whom, and why*. It does not decide slides, beats, or scripts; a downstream skill does that from the canvas.
 
-## What This Skill Produces
-
-A `storytelling.json` file containing:
-1. **Presentation Blueprint** — shared context for the entire story (topic, audience, goal, narrative arc)
-2. **Story Beats** — each beat is a content unit with: headline, narrative, visual evidence, and story metadata
-
-Beats are story units, not slides. One beat may become 1 slide, multiple slides, or part of a slide — that mapping is the output skill's responsibility.
-
-This file is a format-agnostic content plan — any output skill can consume it and adapt it to its own format and constraints.
-
-## Workflow — 5 Steps
-
-### Step 1: Receive Content
-
-Accept content from any source:
-- User types/pastes directly
-- Reference to a NotebookLM notebook
-- File path to a document
-- URL
-
-Read or gather the raw content. Don't ask the user to restructure it — that's your job.
-
-### Step 2: Clarify (ask only what's missing)
-
-Check what information you already have from the content and conversation. Only ask for what's genuinely missing. Never ask more than 3 questions at once.
-
-**Required inputs (must have before proceeding):**
-
-| Field | Why it matters |
-|---|---|
-| **Audience** | Determines vocabulary, depth, emotional appeals |
-| **Goal (Before → After)** | What should the audience think/feel/do differently after? |
-
-**Optional inputs (use smart defaults):**
-
-| Field | Default if not specified |
-|---|---|
-| Tone | "professional" |
-| Language | Same as input content |
-
-If the user gives a brief like "pitch to investors" — you already know audience (investors) and goal (get funding). Don't re-ask. Just confirm your interpretation.
-
-### Step 3: Create Presentation Blueprint
-
-Synthesize everything into a per-presentation blueprint. Read `references/storytelling-canvas.md` for the full framework, but here's the core:
+The canvas has 17 boxes:
 
 ```
-Presentation Blueprint
-──────────────────────
-Topic:          [what it's about]
-Audience:       [who + what they care about]
-Goal:           Before: [current state]
-                After:  [desired state]
-One Big Idea:   [single sentence — the thesis]
-Storyline:      [Report / Explanation / Pitch / Drama]
-Sparkline:      [What Is ↔ What Could Be pattern]
-Tone:           [professional / casual / inspiring]
-Language:       [Thai / English / mixed]
+Frame (asked):   Topic · Audience · Goal · Before · After
+Beginning:       Start with Why · Common Ground · One Big Idea
+Middle:          Simplicity · Unexpectedness · Concreteness · Credibility · Emotions · Storylines · S.T.A.R. moment
+End:             Call to Action · Reward
 ```
 
-**Choosing the storyline type:**
-- **Pitch** — user wants approval, budget, buy-in → alternate what-is/what-could-be
-- **Explanation** — user wants to teach or inform → progressive complexity
-- **Report** — user presents findings/results → data-driven narrative
-- **Drama** — user tells a story to inspire → classic hero's journey arc
+The 5 frame boxes come from the user. The 12 story boxes you write from the content, shaped by the frame.
 
-Show the blueprint to the user for confirmation before proceeding.
+## Step 1: Take in the content
 
-### Step 4: Generate Per-Beat Details
+Content can arrive as pasted text, a file path, a URL, or a NotebookLM notebook. Read it all. Don't ask the user to restructure it.
 
-Once the blueprint is approved, generate full details for every beat directly. Skipping an intermediate beat plan table keeps the focus on story depth rather than a skeleton that could anchor thinking to the wrong format.
+## Step 2: Guide the user through the frame
 
-**Deciding beat count:** Let the content and the narrative arc determine how many beats you need — not a duration target. A short input may yield 5–6 beats; rich, multi-topic content may yield 12–15. Every beat must carry real content — a beat with nothing substantial to say shouldn't exist just to fill a quota. The minimum arc every story needs is: Opening → Problem → S.T.A.R. → Solution → CTA. Add beats in the middle only when the content genuinely supports them.
+The frame is where stories go wrong, and it's where users get confused, especially between **Goal** and **After**. Your job is to make each box easy to answer correctly.
 
-**S.T.A.R. placement:** The S.T.A.R. moment lands hardest after tension has built through problem and evidence beats — placing it too early wastes the impact. It belongs in the second half of the story.
+**Draft first, then ask.** From the content and conversation, draft your best answer for every frame box. Then show the drafts and ask the user to confirm or fix them. Correcting a draft is much easier than answering a blank question. Only ask open questions for boxes you genuinely can't draft.
 
-Each beat has **2 layers**:
+**Ask in two rounds**, because Before/After depend on who the audience is:
+- Round 1: Topic, Audience, Goal
+- Round 2: Before, After
 
-#### Layer 1: Briefing (for humans)
+For each box, show: the question, your draft, and the common mistake to avoid. Use this guide:
 
-```
-Core Takeaway:  [1 sentence — if the audience forgets everything, they remember this]
-Content:        [bullet list of specific facts, data points, and examples that must appear
-                 in this beat — e.g. "47% revenue growth Q3", "Case: Toyota pilot result"
-                 These are the raw materials. Keep them atomic and specific.]
-Narrative:      [the substance of this beat — what needs to be communicated, in full prose.
-                 At least 100 Thai characters or 50 English words, even for short beats.
-                 Weave the Content items into coherent prose here.
-                 This is content, not delivery: not "say this line", not "caption this image".
-                 Output skills will transform this into speaker notes, captions, post copy, etc.]
-```
+| Box | The question | Good answer | Common mistake |
+|---|---|---|---|
+| **Topic** | What is this story about, in one sentence? | "Why our sales team needs a CRM before Q1" | Too broad: "CRM", "AI" |
+| **Audience** | Who is listening, what hurts them (pains), and what do they want (gains)? | "Board of 5. Pain: margins down 3 quarters. Gain: growth without adding headcount" | Only a job title, no pains/gains |
+| **Goal** | What do **you** (the presenter) want to walk away with? | "Board approves 2M THB budget this meeting" | Describing the audience's feelings: that belongs in After |
+| **Before** | Right now, what does the audience **think / feel / know / want**? | Think: "CRM is a nice-to-have". Feel: skeptical. Know: nothing about the cost of lost leads. Want: to cut spending | One blob instead of 4 separate lenses |
+| **After** | When the story ends, what should they **think / feel / know / want**? | Think: "Lost leads cost more than the CRM". Feel: urgent. Know: 18-month payback. Want: to approve today | Pasting your Goal here |
 
-Every beat needs a narrative, even short ones. A divider beat still has substance — what idea is crossing the threshold here? Write it out.
+**Goal vs After, explained for the user** (say this when they mix them up): Goal is *your* outcome. After is *what must change in their heads* so they give you that outcome. The Goal only happens if the After happens first.
 
-Read `references/storytelling-canvas.md` Section "SUCCESS Formula" for how to craft each narrative based on the beat's story role.
+**Check the frame before moving on.** These checks catch a broken frame early, when it's cheap to fix:
+- Goal is written about the presenter; After is written about the audience. If a Goal sentence is really about audience feelings, move it to After.
+- After.want leads directly to the Goal. If the audience "wants" something that doesn't get you your Goal, the story will end in the wrong place.
+- Before and After differ in at least one lens. If they're the same, the story has no job to do.
+- Audience has pains or gains. Start with Why is built from them.
 
-#### Layer 2: Beat Spec (format-agnostic)
+If a check fails, point it out in plain words, suggest a fix, and let the user decide.
 
-```
-SUCCESS Element:[which element of the Canvas this beat addresses:
-                 simplicity / unexpectedness / concreteness / credibility / emotions / storyline / star_moment
-                 — null for opening, divider, reward, and CTA beats]
-Visual Evidence:[what should be shown to support the headline — described as content intent,
-                 not as a prompt. e.g. "bar chart comparing 3 competitors" not "flat vector infographic"]
-Sparkline:      [what_is | what_could_be | shift | neutral]
-                what_is       — current reality, problems, pain
-                what_could_be — vision, solution, possibility
-                shift         — the S.T.A.R. turning point between the two
-                neutral       — structural beats: opening, divider, CTA
-Emotional Tone: [alarming / confident / curious / relieved / inspiring / shocking / nostalgic]
-Priority:       [essential | important | supplementary]
-                essential     — story is incomplete without this beat
-                important     — significantly aids understanding; include if space allows
-                supplementary — adds depth but the story holds without it
-Cluster:        [opening | problem | evidence | solution | closing]
-                — which narrative section this beat belongs to; output skills use this
-                  to group beats when mapping to multi-post or section-based formats
-```
+Tone and language default to "professional" and the language of the input; don't ask unless it matters.
 
-**Why SUCCESS element matters:** The middle section of a story must cover all dimensions of the Canvas — Simplicity, Unexpectedness, Concreteness, Credibility, Emotions. Tagging each beat keeps the story balanced and prevents over-indexing on one type (e.g., 5 data beats in a row).
+When all 5 boxes pass the checks, show the full frame once and get a yes before Step 3.
 
-**Why priority + cluster matter:** This blueprint is a master source of truth — output skills will consume it with different space constraints. Priority lets them select beats automatically: a compact format takes `essential` only; a longer format adds `important`. Cluster lets them group beats into sections or posts. Each output skill is responsible for adapting the `narrative` into its own format-specific writing — that work belongs there, not here.
+## Step 3: Fill the 12 story boxes
 
-**Show progress to the user** as you generate:
-```
-กำลังสร้างรายละเอียด 12 beats...
-✅ Beat 1/12 — Opening
-✅ Beat 2/12 — Common Ground
-...
-```
+Read `references/storytelling-canvas.md` for what each box needs and how to write it well. The short version:
 
-### Step 5: Save storytelling.json
+- **Beginning** earns attention. *Start with Why* answers "why should I care?" using the audience's pains/gains. *Common Ground* is a shared past experience or a shared future vision. *One Big Idea* is one complete sentence that states the unique perspective and what's at stake.
+- **Middle** makes the point with the right mix of information and emotion. Fill every SUCCESS box; a box you skip is a dimension the story is missing. *Storylines* is where you pick report / explanation / pitch / drama and say why.
+- **End** lands it. *Call to Action* is a concrete ask matched to the audience type (doer / supplier / influencer / innovator). *Reward* covers personal, sphere (people around them), and humanity.
 
-Write the complete output to `storytelling.json` in the current working directory.
+Everything must trace back to the frame: Start with Why comes from Audience pains/gains, the Middle moves them from Before to After, and the Call to Action is the step that turns After into the Goal.
 
-**Schema:**
+**Don't invent evidence.** If the content has no statistic, quote, or case for Credibility or Concreteness, don't make one up. Write what kind of evidence is needed and add it to `gaps`. A canvas with honest gaps is useful; a canvas with fake numbers is dangerous once it reaches a slide.
+
+## Step 4: Save and summarize
+
+Write `storytelling-canvas.json` to the current working directory:
 
 ```jsonc
 {
-  "canvas": {
-    // — General Conditions (Kernbach) —
-    "topic": "string",
-    "audience": "string",
-    "audience_type": "doer | supplier | influencer | innovator",
-    "audience_analysis": {
-      "before": {
-        "think": "string — what they currently believe",
-        "feel": "string — how they currently feel",
-        "know": "string — what they currently know",
-        "want": "string — what they currently want to do"
-      },
-      "after": {
-        "think": "string — what they should believe",
-        "feel": "string — how they should feel",
-        "know": "string — what they should know",
-        "want": "string — what they should want to do"
-      }
-    },
-    "goal": {
-      "before": "string — summary of audience state before",
-      "after": "string — summary of desired state after"
-    },
-    "one_big_idea": "string — single thesis sentence, the one thing they must remember",
-    "common_ground": "string — shared experience or vision between presenter and audience",
-
-    // — Story Architecture —
-    "storyline": "pitch | explanation | report | drama",
-    "plot_type": "man_in_a_hole | rags_to_riches | cinderella | icarus | riches_to_rags | oedipus",
-    "conflict_type": "self_vs_self | self_vs_others | self_vs_environment",
-    "sparkline_type": "what_is_vs_what_could_be | progressive | data_driven | hero_journey",
-    "star_moment_index": "number — index of the S.T.A.R. moment beat",
-
-    // — Ending —
-    "reward": {
-      "personal": "string — how the audience personally benefits",
-      "sphere": "string — how it benefits people around them",
-      "humanity": "string — how it contributes to something larger"
-    },
-
-    // — Style —
-    "tone": "string",
-    "language": "string"
+  "topic": "string",
+  "audience": {
+    "who": "string",
+    "pains": ["string"],
+    "gains": ["string"]
   },
-  "beats": [
-    {
-      "index": 1,
-      "type": "opening | common_ground | problem | data | star_moment | divider | solution | process | roi | comparison | reward | cta | ...",
-      "story_role": "beginning/start_with_why | beginning/common_ground | beginning/one_big_idea | middle/simplicity | middle/unexpectedness | middle/concreteness | middle/credibility | middle/emotions | middle/star_moment | end/reward | end/cta",
-      "success_element": "simplicity | unexpectedness | concreteness | credibility | emotions | storyline | star_moment | null",
-      "sparkline_position": "what_is | what_could_be | shift | neutral",
-      "emotional_tone": "string",
+  "goal": "string, the presenter's outcome",
+  "before": { "think": "string", "feel": "string", "know": "string", "want": "string" },
+  "after":  { "think": "string", "feel": "string", "know": "string", "want": "string" },
 
-      "headline": "string — full-sentence assertion (Alley model)",
-      "visual_evidence": "string — what should be shown to support the headline, described as content intent",
-      "content": ["array of specific data/text items to include"],
-      "core_takeaway": "string — 1 sentence: if they forget everything else, they remember this",
+  "beginning": {
+    "start_with_why": "string",
+    "common_ground": "string",
+    "one_big_idea": "string, one complete sentence"
+  },
+  "middle": {
+    "simplicity": { "key_point": "string", "supports": ["string", "string", "string"] },
+    "unexpectedness": "string",
+    "concreteness": "string",
+    "credibility": "string",
+    "emotions": "string",
+    "storyline": { "type": "report | explanation | pitch | drama", "why": "string" },
+    "star_moment": "string"
+  },
+  "end": {
+    "call_to_action": {
+      "audience_type": "doer | supplier | influencer | innovator",
+      "ask": "string, concrete and specific"
+    },
+    "reward": { "personal": "string", "sphere": "string", "humanity": "string" }
+  },
 
-      "narrative": "string — substance of this beat in full prose, 100+ Thai chars or 50+ English words",
-
-      // — Output skill hints —
-      "priority": "essential | important | supplementary",
-      "cluster": "opening | problem | evidence | solution | closing"
-    }
-  ]
+  "gaps": ["string, evidence or facts still needed"],
+  "tone": "string",
+  "language": "string"
 }
 ```
 
-After saving, tell the user:
+Then tell the story back to the user in chat, in the canvas language, as a short spoken walkthrough (about 8 to 15 lines): how it opens, what the middle proves, where it lands, and what you're asking for. This lets them hear whether the story works without reading JSON. List any `gaps` after it, then the file path.
+
+Finish with:
 ```
-📄 storytelling.json พร้อมแล้ว (X beats) — นำไปใช้ต่อได้เลย
+📄 storytelling-canvas.json พร้อมแล้ว: ส่งต่อให้ presentation planner หรือ slide skill ได้เลย
 ```
-
-Note: `storytelling.json` เป็น format-agnostic content plan — skill ใดก็ได้รับไปเป็น context แล้วตีความสู่ output format ของตัวเอง
-
-## Important Principles
-
-**On beat types:** Each beat has exactly one `type` — the primary narrative function (opening, problem, data, solution, star_moment, etc.). If a beat is trying to do two things at once (e.g., establish common ground AND deliver the S.T.A.R. moment), split it into two beats. The `success_element` field is separate — it tags which Canvas dimension the beat serves, not the narrative role.
-
-**On S.T.A.R. placement:** The S.T.A.R. moment is the climax of the story — it lands hardest when the audience has traveled through problem, data, and stakes. Placing it before that tension has built wastes the impact. S.T.A.R. belongs in the second half of the story, after the Middle section has done its work.
-
-**On beats vs slides:** Beats are story units, not slides. A beat represents one narrative idea — it may become 1 slide, multiple slides, or share a slide with another beat. The split into visual units is the output skill's responsibility. Don't think in slides when planning beats.
-
-**On headlines:** Every beat headline is a full-sentence assertion (Michael Alley's model). "ต้นทุนซ่อนเร้นสูงถึง 1.2 ล้านต่อปี" not "ต้นทุน". This is backed by research — audiences understand and remember assertion headlines significantly better than topic labels.
-
-**On content density:** Each beat carries exactly one idea. If you find yourself putting two arguments, two data points, or two emotional appeals into a single beat — split it. The narrative can elaborate, but the headline and core takeaway must be singular and sharp. Audiences remember one thing per moment, not five.
-
-**On emotional arc:** Stories that just dump information are forgettable. The Sparkline pattern (Duarte) alternates between "what is" (current reality, problems) and "what could be" (vision, solutions). This tension and resolution keeps the audience engaged and makes the final vision feel earned. For Pitch storylines, this is essential — tag each beat's `sparkline_position` carefully to maintain the rhythm.
-
-**On SUCCESS elements:** The middle section of a story must cover all 7 elements of the Canvas (Simplicity, Unexpectedness, Concreteness, Credibility, Emotions, Storylines, S.T.A.R. moment). Tagging each beat keeps you honest — if you look at your `success_element` tags and see only "data/credibility" beats, the story is too dry. Balance information with emotion.
-
-## Reference Files
-
-Read these when you need deeper knowledge:
-
-| File | When to read |
-|---|---|
-| `references/storytelling-canvas.md` | Step 3 (blueprint) — story roles, audience types, sparkline pattern; Step 4 (beats) — SUCCESS formula, narrative guidance |

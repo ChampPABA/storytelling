@@ -1,18 +1,19 @@
 # storytelling
 
-A Claude Code skill for planning presentations using the Storytelling Canvas framework — from raw content to a format-agnostic story blueprint with beat narratives and visual evidence notes.
+A Claude Code skill that builds a **Storytelling Canvas** (Sebastian Kernbach) for any presentation, pitch, or talk. It guides you through the frame (Topic, Audience, Goal, Before, After), then fills the 12 story boxes and saves the result as JSON.
+
+It decides *the story*. Slides, beats, and scripts are the job of a separate presentation-planner or slide skill that reads the canvas.
 
 ## What it does
 
 ```
-/storytelling Help me create a pitch deck about digital transformation for the board
+/storytelling Help me pitch a CRM budget to the board next week
 ```
 
-Produces a `storytelling.json` containing:
-- **Canvas Blueprint** — topic, audience, goal, one big idea, storyline, sparkline
-- **Story Beats** — assertion headline, narrative, visual evidence, SUCCESS element, priority, cluster
-
-The output is format-agnostic — any output skill (slides, social posts, articles) can consume it.
+1. Drafts the 5 frame boxes from your content and asks you to confirm or fix them, with examples of good answers and common mistakes
+2. Checks the frame (e.g. Goal is yours, After is the audience's; After leads to Goal)
+3. Fills Beginning, Middle (SUCCESS), and End
+4. Saves `storytelling-canvas.json` and tells the story back to you in chat
 
 ## Install
 
@@ -20,62 +21,65 @@ The output is format-agnostic — any output skill (slides, social posts, articl
 npx skills add https://github.com/ChampPABA/storytelling --skill storytelling
 ```
 
-Or install globally (available across all projects):
+Or globally (all projects):
 
 ```bash
 npx skills add https://github.com/ChampPABA/storytelling --skill storytelling -g
 ```
 
-## Flow
+Update:
 
-```
-/storytelling (plan)                output skill (generate)
-      │                                  │
-      ├─ Receive content                 ├─ Read storytelling.json
-      ├─ Clarify missing info            ├─ Adapt beats to format
-      ├─ Create blueprint                └─ Produce output
-      ├─ User approve/iterate
-      ├─ Gen per-beat details
-      └─ Save storytelling.json
+```bash
+npx skills update
 ```
 
-## Frameworks
+## The canvas
 
-Built by combining established presentation design research:
+```
+Frame:      Topic · Audience · Goal · Before · After
+Beginning:  Start with Why · Common Ground · One Big Idea
+Middle:     Simplicity · Unexpectedness · Concreteness · Credibility · Emotions · Storylines · S.T.A.R. moment
+End:        Call to Action · Reward
+```
 
-| Source | What it provides |
-|---|---|
-| **Storytelling Canvas** (Kernbach) | 3-Act story structure, SUCCESS formula |
-| **Sparkline** (Nancy Duarte) | What Is ↔ What Could Be emotional arc |
-| **Assertion-Evidence Model** (Michael Alley) | Full-sentence headlines + visual evidence |
-| **Presentation Zen** (Garr Reynolds) | Simplicity, white space, picture superiority |
+**Goal vs After:** Goal is what *you* want (e.g. budget approved). After is what the audience should think / feel / know / want when the story ends. The Goal only happens if the After happens first.
 
-## Output Schema
+## Output schema
 
 ```jsonc
 {
-  "canvas": {
-    "topic": "...",
-    "audience": "...",
-    "audience_type": "doer | supplier | influencer | innovator",
-    "goal": { "before": "...", "after": "..." },
-    "one_big_idea": "...",
-    "storyline": "pitch | explanation | report | drama",
-    "tone": "...",
-    "language": "..."
+  "topic": "...",
+  "audience": { "who": "...", "pains": ["..."], "gains": ["..."] },
+  "goal": "presenter's outcome",
+  "before": { "think": "...", "feel": "...", "know": "...", "want": "..." },
+  "after":  { "think": "...", "feel": "...", "know": "...", "want": "..." },
+  "beginning": { "start_with_why": "...", "common_ground": "...", "one_big_idea": "..." },
+  "middle": {
+    "simplicity": { "key_point": "...", "supports": ["...", "...", "..."] },
+    "unexpectedness": "...",
+    "concreteness": "...",
+    "credibility": "...",
+    "emotions": "...",
+    "storyline": { "type": "report | explanation | pitch | drama", "why": "..." },
+    "star_moment": "..."
   },
-  "beats": [{
-    "index": 1,
-    "type": "opening | problem | data | star_moment | solution | reward | cta | ...",
-    "headline": "Full-sentence assertion summarizing this beat's key message",
-    "narrative": "The substance of this beat — what needs to be communicated, in full prose",
-    "visual_evidence": "What should be shown to support the headline",
-    "success_element": "simplicity | unexpectedness | concreteness | credibility | emotions | storyline | star_moment | null",
-    "priority": "essential | important | supplementary",
-    "cluster": "opening | problem | evidence | solution | closing"
-  }]
+  "end": {
+    "call_to_action": { "audience_type": "doer | supplier | influencer | innovator", "ask": "..." },
+    "reward": { "personal": "...", "sphere": "...", "humanity": "..." }
+  },
+  "gaps": ["evidence still needed"],
+  "tone": "...",
+  "language": "..."
 }
 ```
+
+## Breaking change (v2)
+
+Earlier versions wrote `storytelling.json` with a `beats` array. v2 writes `storytelling-canvas.json` with the canvas only. Beat planning moved out to presentation-planner / slide skills.
+
+## Source
+
+Kernbach, S. (2018). *Storytelling Canvas: A visual framework for developing and delivering resonating stories.* University of St. Gallen / Stanford d.school. The SUCCESS middle builds on Heath & Heath, *Made to Stick*.
 
 ## License
 
